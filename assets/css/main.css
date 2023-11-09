@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: Radjhani;
+  src: url("font/Rajdhani-Medium.ttf");
+}
+@font-face {
+  font-family: Radjhani;
+  src: url("font/Rajdhani-SemiBold.ttf");
+  font-weight: bold;
+}
+
+:root {
+    --clr-text-blue: #4cf6ff;
+    --clr-text-green: #1cff9b;
+    --clr-text-red: #ed3d37;
+
+    font-family: Radjhani;
+}
+
+.red {
+  color: var(--clr-text-red);
+  text-shadow: 0 0 7px var(--clr-text-red);
+}
+.green {
+  color: var(--clr-text-green);
+  text-shadow: 0 0 7px var(--clr-text-green);
+}
+.blue {
+  color: var(--clr-text-blue);
+  text-shadow: 0 0 7px var(--clr-text-blue);
+}
+
+.line {
+  height: 0.25em;
+}
+
+.red-box {
+    background-color: var(--clr-text-red);
+    box-shadow: 0 0 7px var(--clr-text-red);
+    color: black;
+}
+.green-box {
+    background-color: var(--clr-text-green);
+    box-shadow: 0 0 7px var(--clr-text-green);
+    color: black;
+}
+.blue-box {
+    background-color: var(--clr-text-blue);
+    box-shadow: 0 0 7px var(--clr-text-blue);
+    color: black;
+}
