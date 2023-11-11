@@ -16,25 +16,43 @@
     --clr-text-blue: #4cf6ff;
     --clr-text-green: #1cff9b;
     --clr-text-red: #ed3d37;
+    --clr-bg-red: #ed3d3710;
+    --clr-bg-black: #ed3d3700;
+    --clr-bg-red-active: #ed3d3750;
+    --clr-text-yellow: #ffbb00;
+    --clr-bg-hover: rgba(255, 255, 255, 0.2);
+    --clr-bg-active: rgba(255, 255, 255, 0.5);
 
     font-family: Radjhani;
 }
 
 .red {
   color: var(--clr-text-red);
-  text-shadow: 0 0 7px var(--clr-text-red);
+  text-shadow: 0 0 2px var(--clr-text-red);
 }
 .green {
   color: var(--clr-text-green);
-  text-shadow: 0 0 7px var(--clr-text-green);
+  text-shadow: 0 0 2px var(--clr-text-green);
 }
 .blue {
   color: var(--clr-text-blue);
-  text-shadow: 0 0 7px var(--clr-text-blue);
+  text-shadow: 0 0 2px var(--clr-text-blue);
+}
+.yellow {
+  color: var(--clr-text-yellow);
+  text-shadow: 0 0 2px var(--clr-text-yellow);
+}
+.white {
+  color: white;
+  text-shadow: 0 0 2px white;
 }
 
 .line {
-  height: 0.25em;
+  height: 0.25rem;
+}
+
+.line-thin {
+  height: 0.1rem;
 }
 
 .red-box {
@@ -51,4 +69,14 @@
     background-color: var(--clr-text-blue);
     box-shadow: 0 0 7px var(--clr-text-blue);
     color: black;
+}
+
+h1 {
+  font-size: xx-large;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: x-large;
+  font-weight: bold;
 }
