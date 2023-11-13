@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper red">
-        <div class="nav">
+        <div class="nav noselect">
             <div class="buttons">
                 <div id="invs" @click="() => SetState(NavState.Inventories)">
                     <i class="fa-solid fa-layer-group fa-sm"></i> Inventories
@@ -67,7 +67,6 @@ onMounted(() => {
     
     padding: 0.5em;
     font-size: 1.4em;
-    transition: 0.1s linear;
 
     cursor: pointer;
 }
@@ -77,7 +76,7 @@ onMounted(() => {
 }
 
 .buttons > div:hover {
-    background-color: var(--clr-bg-hover);
+    background-color: var(--clr-bg-red);
 }
 
 .buttons > div.selected:hover {
@@ -90,7 +89,7 @@ onMounted(() => {
 
 @keyframes select-flash {
     0% {
-        background-color: rgba(255, 255, 255, 0.5);
+        background-color: var(--clr-bg-red-active);
     }
     100% {
         background-color: transparent;

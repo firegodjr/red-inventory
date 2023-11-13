@@ -1,0 +1,95 @@
+label {
+    color: white;
+  }
+  
+  label::after {
+    content: "\a";
+    white-space: pre;
+  }
+  
+  button {
+    font-weight: bold;
+    position: relative;
+    border-top: 2px solid var(--clr-text-red);
+    padding: 0.25em;
+    padding-right: 1.5em;
+    margin: 0.25em;
+    background-color: var(--clr-bg-red);
+    color: var(--clr-text-red);
+  }
+  
+  button.green {
+    border-top: 2px solid var(--clr-text-green);
+  }
+  
+  button.green::after {
+    background-color: var(--clr-text-green);
+  }
+  
+  button.white {
+    border-top: 2px solid white;
+  }
+  
+  button.white::after {
+    background-color: white;
+  }
+  
+  button.white:hover {
+    color: var(--clr-text-green);
+    border-top: 2px solid var(--clr-text-green);
+  }
+  
+  button.white:hover::after {
+    background-color: var(--clr-text-green);
+  }
+  
+  button:hover {
+    color: white;
+    background-color: var(--clr-bg-red);
+    border-top: 2px solid white;
+  }
+  
+  button:hover::after {
+    background-color: white;
+    right: 0.25em;
+  }
+  
+  button:active {
+    background-color: var(--clr-bg-red-active);
+  }
+  
+  button::after {
+    content: '';
+    display: block;
+    position: absolute;
+    -webkit-mask: url("../../images/caret-right-solid.svg") no-repeat 50% 50%;
+    mask: url("../../images/caret-right-solid.svg") no-repeat 50% 50%;
+    -webkit-mask-size: cover;
+    mask-size: cover;
+    right: 0.5em;
+    top: 0.6em;
+    background-color: var(--clr-text-red);
+    width: 0.5em;
+    height: 0.75em;
+  
+    transition: right 0.1s linear;
+  }
+  
+  input[type=text], input[type=password] {
+    background-color: var(--clr-bg-red);
+    margin: 0.25em;
+    padding: 0.25em;
+    color: white;
+    border-left: 2px solid var(--clr-text-red);
+    border-bottom: 2px solid var(--clr-text-red);
+  }
+  
+  textarea {
+    background-color: var(--clr-bg-red);
+    margin: 0.25em;
+    padding: 0.25em;
+    color: white;
+    border-left: 2px solid var(--clr-text-red);
+    border-bottom: 2px solid var(--clr-text-red);
+  }
+  

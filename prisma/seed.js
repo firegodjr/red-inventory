@@ -48,6 +48,47 @@ async function seed() {
                                 }
                             ]
                         }
+                    },
+                    {
+                        name: "Dumpster on 12th & Main",
+                        items: {
+                            create: [
+                                {
+                                    name: "Militech XR-83",
+                                    type: "Heavy Ranged Weapon",
+                                    count: 1,
+                                    fields: {
+                                        create: [
+                                            {
+                                                name: "Damage",
+                                                value: "3d6"
+                                            },
+                                            {
+                                                name: "Magazine Size",
+                                                value: "8"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    name: "Arasaka Smart Shotgun",
+                                    type: "Heavy Ranged Weapon",
+                                    count: 1,
+                                    fields: {
+                                        create: [
+                                            {
+                                                name: "Damage",
+                                                value: "3d6"
+                                            },
+                                            {
+                                                name: "Magazine Size",
+                                                value: "4"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
                     }
                 ]
             }

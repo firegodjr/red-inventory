@@ -1,10 +1,12 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
+
+// TODO skip/take
 export default defineEventHandler(async (event) => {
     let { userId } = await readBody(event);
 
-    return prisma.inventory.findMany({
+    let result = await prisma.inventory.findMany({
         where: {
             users: {
                 some: {
@@ -24,5 +26,13 @@ export default defineEventHandler(async (event) => {
             },
             users: true
         }
-    })
+    });
+
+    return result.map(x => { 
+        return {
+            name: x.name,
+            users: x._count.users,
+            items: x._count.items
+        }
+    });
 });
