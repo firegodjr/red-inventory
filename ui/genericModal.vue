@@ -1,8 +1,8 @@
 <template>
     <div class="blockui relative">
-        <AddInvModal v-if="props.type == ModalType.NEW_INV" 
-        @submit="e => emit('submit', e)" 
-        @cancel="e => emit('cancel', e)"
+        <component :is="props.modal" v-if="modal !== null" 
+        @submit="(e:any) => emit('submit', e)" 
+        @cancel="(e:any) => emit('cancel', e)"
         />
         <template v-else>
             <!-- fallback modal -->
@@ -26,6 +26,7 @@ import AddInvModal from './modal/addInvModal.vue';
 
 
 const props = defineProps<{
+    modal: object | null
     type: ModalType
 }>();
 
@@ -46,7 +47,7 @@ let show = ref(false);
     z-index: 9999;
 
     backdrop-filter: blur(10px);
-    animation: fadein 0.1s linear;
+    animation: blockui-fadein 0.1s linear;
 
     background-color: rgba(0, 0, 0, 0.349);
 }
@@ -59,7 +60,8 @@ let show = ref(false);
     width: 40em;
     background: var(--clr-bg-red);
     backdrop-filter: blur(100px);
-    font-size: large;
+    animation: modal-fadein 0.1s linear;
+
 }
 
 .line-box > i {
@@ -72,7 +74,7 @@ let show = ref(false);
     padding: 1em;
 }
 
-@keyframes fadein {
+@keyframes blockui-fadein {
     0% { 
         backdrop-filter: blur(0); 
         background-color: transparent;
@@ -80,6 +82,15 @@ let show = ref(false);
     100% { 
         backdrop-filter: blur(10px); 
         background-color: rgba(0, 0, 0, 0.349);
+    }
+}
+
+@keyframes modal-fadein {
+    0% {
+        transform: rotateX(90deg);
+    }
+    100% {
+        transform: rotateX(0deg);
     }
 }
 </style>

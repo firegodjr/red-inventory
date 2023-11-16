@@ -1,7 +1,8 @@
 <template>
   <GenericModal
   v-if="ModalDisplay"
-  :type="CurrModalType" 
+  :type="CurrModalType"
+  :modal="CurrModal"
   @submit="handleModalSubmit"
   @cancel="handleModalCancel"/>
   <NavFrame>
@@ -11,7 +12,7 @@
         <h1>INVENTORIES</h1>
         <p>Where your crew stashes loot, guns, and chrome.</p>
         <div @click="showAddInventory" class="add-new noselect green p-3 absolute top-3 right-0">
-          <h2><i class="fa-solid fa-circle-plus"></i> New Inventory</h2>
+          <h2><i class="fa-solid fa-circle-plus"></i><span> New Inventory</span></h2>
         </div>
       </div>
       <br />
@@ -29,7 +30,7 @@
         <h1>NET ARCHITECTURES</h1>
         <p>Your home away from meatspace.</p>
         <div @click="showAddArchitecture" class="add-new noselect green p-3 absolute top-3 right-0">
-        <h2><i class="fa-solid fa-circle-plus"></i> New Architecture</h2>
+        <h2><i class="fa-solid fa-circle-plus"></i><span> New Architecture</span></h2>
       </div>
       </div>
       <br />
@@ -51,10 +52,12 @@
 </template>
 
 <script setup lang="ts">
+import { ComponentInternalInstance } from "vue";
 import GenericModal from "./ui/genericModal.vue";
 import GenericList from "./ui/inventories/genericList.vue";
 import { ModalType } from "./ui/modal";
 import NavFrame from "./ui/navFrame.vue";
+import AddInvModal from "./ui/modal/addInvModal.vue";
 
 useHead({
   script: [
@@ -68,6 +71,7 @@ useHead({
 
 let ModalDisplay = ref(false);
 let CurrModalType = ref(ModalType.CONFIRM);
+let CurrModal: Ref<object | null> = ref(null);
 
 const { data: inventories } = await useFetch("/api/getInventoriesForUser", {
     method: 'post',
@@ -77,11 +81,11 @@ const { data: inventories } = await useFetch("/api/getInventoriesForUser", {
 });
 
 function showAddInventory() {
-  CurrModalType.value = ModalType.NEW_INV;
+  CurrModal.value = AddInvModal;
   ModalDisplay.value = true;
 }
 function showAddArchitecture() {
-  CurrModalType.value = ModalType.NEW_ARCH;
+  CurrModal.value = null; //TODO
   ModalDisplay.value = true;
 }
 

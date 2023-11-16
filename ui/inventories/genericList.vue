@@ -58,10 +58,13 @@ function getEntryDesc(entry: any): string {
 .cyber-list {
     display: grid;
     position: relative;
-    font-size: x-large;
+    font-size: large;
     font-weight: bold;
     background-color: var(--clr-bg-red);
     margin-left: 1.40em;
+
+    container-type: inline-size;
+    container-name: generic-list;
 }
 
 .cyber-list > i {
@@ -107,5 +110,18 @@ function getEntryDesc(entry: any): string {
 
 .cyber-list-entry.clickable:active {
     background-color: var(--clr-bg-red-active);
+}
+
+@container generic-list (max-width: 400px) {
+    .cyber-list-entry * {
+        font-size: 1rem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .cyber-list-entry .desc::before {
+        content: "\a";
+        white-space: pre;
+    }
 }
 </style>

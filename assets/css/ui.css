@@ -80,8 +80,7 @@ label {
     margin: 0.25em;
     padding: 0.25em;
     color: white;
-    border-left: 2px solid var(--clr-text-red);
-    border-bottom: 2px solid var(--clr-text-red);
+    border-left: 1px dashed var(--clr-text-red);
   }
   
   textarea {
@@ -89,7 +88,7 @@ label {
     margin: 0.25em;
     padding: 0.25em;
     color: white;
-    border-left: 2px solid var(--clr-text-red);
-    border-bottom: 2px solid var(--clr-text-red);
+    border-left: 1px dashed var(--clr-text-red);
+    border-bottom: 1px solid var(--clr-text-red);
   }
   
