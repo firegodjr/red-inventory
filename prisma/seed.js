@@ -16,6 +16,7 @@ async function seed() {
                                     name: "Militech XR-83",
                                     type: 11,
                                     count: 1,
+                                    quality: 2,
                                     fields: {
                                         create: [
                                             {
@@ -30,19 +31,12 @@ async function seed() {
                                     }
                                 },
                                 {
-                                    name: "Arasaka Smart Shotgun",
-                                    type: 25,
+                                    name: "Sandevistan",
+                                    type: 4,
                                     count: 1,
+                                    quality: 3,
                                     fields: {
                                         create: [
-                                            {
-                                                name: "Damage",
-                                                value: "3d6"
-                                            },
-                                            {
-                                                name: "Magazine Size",
-                                                value: "4"
-                                            }
                                         ]
                                     }
                                 }
@@ -54,9 +48,28 @@ async function seed() {
                         items: {
                             create: [
                                 {
+                                    name: "Severed Cyberear",
+                                    type: 1,
+                                    count: 1,
+                                    quality: 1,
+                                    fields: {
+                                        create: [
+                                            {
+                                                name: "Damage",
+                                                value: "3d6"
+                                            },
+                                            {
+                                                name: "Magazine Size",
+                                                value: "8"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
                                     name: "Militech XR-83",
                                     type: 11,
                                     count: 1,
+                                    quality: 2,
                                     fields: {
                                         create: [
                                             {
@@ -74,6 +87,7 @@ async function seed() {
                                     name: "Arasaka Smart Shotgun",
                                     type: 25,
                                     count: 1,
+                                    quality: 3,
                                     fields: {
                                         create: [
                                             {

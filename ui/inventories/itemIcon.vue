@@ -3,7 +3,7 @@
         <i v-if="itemType == ItemType.CW_AUDIO" class="fa-solid fa-ear-listen"></i>
         <i v-if="itemType == ItemType.CW_OPTICS" class="fa-solid fa-eye"></i>
         <i v-if="itemType == ItemType.CW_BORGWARE" class="fa-solid fa-robot"></i>
-        <i v-if="cyberware.indexOf(itemType) != -1" class="fa-solid fa-user-gear"></i>
+        <i v-if="cyberware.indexOf(itemType) != -1" class="fa-solid fa-microchip"></i>
         <i v-if="guns.indexOf(itemType) != -1" class="fa-solid fa-gun"></i>
     </span>
 </template>

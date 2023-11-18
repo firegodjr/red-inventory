@@ -1,6 +1,6 @@
 <template>
-    <button @click="setPaneByIndex(currPaneIndex - 1)">Back</button>
-    <button @click="setPaneByIndex(currPaneIndex + 1)">Forward</button>
+    <button v-if="showHeader" @click="setPaneByIndex(currPaneIndex - 1)">Back</button>
+    <button v-if="showHeader" @click="setPaneByIndex(currPaneIndex + 1)">Forward</button>
     <div class="holo-pane-wrapper">
         <div v-for="pane in paneNames" class="pane" :class="{hidden: currPane != pane}" :style="getPaneStyle(pane, currPaneIndex)">
             <h2 v-if="showHeader">{{ pane }}</h2>
@@ -52,14 +52,15 @@ function getPaneStyle(name: string, currPaneIndex: number): StyleValue {
             filter: `blur(9px)`,
             opacity: '0',
             'pointer-events': 'none',
-            transform: `translateX(${20}vw) scale(1.2)`
+            transform: `translateX(${15}rem) scale(1.3)`
         }
     }
 
     return {
         filter: `blur(${9*paneDepth}px)`,
         opacity: `${1-0.5*paneDepth}`,
-        transform: `translateX(${-10*paneDepth}vw) scale(${Math.max(0, 1 - 0.2*paneDepth)})`
+        transform: `translateX(${-15*paneDepth}rem) scale(${Math.max(0, 1 - 0.2*paneDepth)})`,
+        'pointer-events': paneDepth > 0 ? 'none' : 'inherit'
     }
 }
 </script>
@@ -68,15 +69,10 @@ function getPaneStyle(name: string, currPaneIndex: number): StyleValue {
 .holo-pane-wrapper {
     display: grid;
     position: relative;
-    grid-template-columns: 1fr 1fr;
     gap: 1em;
 
     container-type: inline-size;
     container-name: two-pane;
-}
-
-.back-btn {
-    display: none;
 }
 
 .pane {

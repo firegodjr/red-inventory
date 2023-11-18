@@ -1,52 +1,56 @@
 <template>
-    <div class="relative">
-        <h1>INVENTORIES</h1>
-        <p>Where your crew stashes loot, guns, and chrome.</p>
-        <div @click="() => emit('reqest-modal', ModalType.NEW_INV)" class="add-new noselect green p-3 absolute top-3 right-0">
-            <h2><i class="fa-solid fa-circle-plus"></i><span> New Inventory</span></h2>
-        </div>
-    </div>
-    <br />
     <HoloPanes 
     ref="InvPanes"
-    :show-header="true"
+    :show-header="false"
     :pane-names="['inventories', 'items', 'itemView']"
     :curr-pane="CurrPane">
         <template v-slot:inventories>
-            {{ inventories }}
+            <div class="relative">
+                <h1>INVENTORIES</h1>
+                <p>Where your crew stashes loot, guns, and chrome.</p>
+            </div>
+            <br />
             <GenericList 
+            :add-button-string="'New Inventory'"
             :entries="inventories" 
             :entry-name-key="'name'" 
             :entry-desc-keys="['itemCount', 'userCount']"
             :entry-desc-format="'Items: {0} - Users: {1}'" 
+            @addbtn-click="handleAddInventory"
             @entry-click="handleSelectInventory">
                 <i class="fa-solid fa-layer-group fa-sm"></i>
             </GenericList>
         </template>
         <template v-slot:items>
+            <button class="back-btn" @click="() => CurrPane = 'inventories'">Back to Inventories</button><br />
+            <h1>{{ SelectedInventory?.name }}</h1>
             <GenericList 
+            :add-button-string="'New Item'"
             :entries="SelectedInventory?.items" 
             :entry-name-key="'name'" 
-            :entry-desc-keys="(e) => [ItemTypeToString(e.type), e.count]"
-            :entry-desc-format="'{0} x{1}'" 
+            :entry-desc-keys="(e) => [ItemQualityToString(e.quality), ItemTypeToString(e.type), e.count]"
+            :entry-desc-format="'{0} {1} x{2}'" 
             :get-item-type="(e) => e.type"
+            @addbtn-click="handleAddItem"
             @entry-click="handleSelectItem">
                 <i class="fa-solid fa-boxes-stacked"></i>
             </GenericList>
         </template>
         <template v-slot:itemView>
-            <h1 class="blue">{{ SelectedItem?.name }}</h1>
+            <button class="back-btn" @click="() => CurrPane = 'items'">Back to Items</button><br />
+            <h1 class="red">{{ SelectedItem?.name }}</h1>
             <h3 class="white">
                 <ItemIcon :item-type="SelectedItem?.type || ItemType.NONE" />
+                <ItemQualityStr :quality="SelectedItem?.quality || ItemQuality.NONE"/>
                 {{ ItemTypeToString(SelectedItem?.type) }}</h3>
             <br />
             <h3>Attributes</h3>
             <GenericList 
-            :entries="SelectedItem?.items" 
+            :noclick="true"
+            :entries="SelectedItem?.fields" 
             :entry-name-key="'name'" 
-            :entry-desc-keys="['type', 'count']"
-            :entry-desc-format="'{0} x{1}'"
-            @entry-click="handleSelectItem">
+            :entry-desc-keys="['value']"
+            :entry-desc-format="'{0}'">
                 <i class="fa-solid fa-paperclip"></i>
             </GenericList>
         </template>
@@ -58,7 +62,8 @@ import { ModalType } from '../modal';
 import HoloPanes from '../generic/holoPanes.vue';
 import GenericList from '../generic/genericList.vue';
 import ItemIcon from './itemIcon.vue';
-import { ItemType, ItemTypeToString } from '~/items/itemsUtil';
+import { ItemQuality, ItemType, ItemTypeToString, ItemQualityToString } from '~/items/itemsUtil';
+import ItemQualityStr from './itemQualityStr.vue';
 
 let SelectedInventory: Ref<any | null> = ref(null);
 let SelectedItem: Ref<any | null> = ref(null);
@@ -77,9 +82,17 @@ async function handleSelectInventory(e: any) {
     CurrPane.value = 'items';
 }
 
+function handleAddInventory(e: any) {
+    emit('reqest-modal', ModalType.NEW_INV);
+}
+
 async function handleSelectItem(e: any) {
     SelectedItem.value = e;
     CurrPane.value = 'itemView'
+}
+
+function handleAddItem(e: any) {
+    emit('reqest-modal', ModalType.NEW_ITEM)
 }
 
 onMounted(() => {

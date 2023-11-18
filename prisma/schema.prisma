@@ -28,6 +28,7 @@ model Item {
   name        String
   type        Int
   count       Int
+  quality     Int
   fields      Field[]
   inventory   Inventory @relation(fields: [inventoryId], references: [id])
   inventoryId Int

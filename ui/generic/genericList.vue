@@ -5,11 +5,11 @@
             <slot><i class="fa-solid fa-layer-group fa-sm"></i></slot>
         </div>
         <template v-for="entry in entries">
-            <div :tabindex="0" class="cyber-list-entry clickable" @click="() => emit('entry-click', entry)">
+            <div :tabindex="0" class="cyber-list-entry" :class="{clickable: !noclick}" @click="() => emit('entry-click', entry)">
                 <ItemIcon v-if="getItemType" class="red" :item-type="getItemType(entry)" />
                 <span class="blue">{{ getEntryName(entry) }}</span>
                 <span class="desc white">{{ getEntryDesc(entry) }}</span>
-                <span class="chevron"><i class="fa-solid fa-caret-right"></i></span>
+                <span v-if="!noclick" class="chevron"><i class="fa-solid fa-caret-right"></i></span>
             </div>
             <div class="line-thin red-box"></div>
         </template>
@@ -17,6 +17,12 @@
             <div class="cyber-list-entry">
                 <span class="red">NO DATA</span>
             </div>
+        </template>
+        <template v-if="addButtonString">
+            <div class="cyber-list-entry add-new clickable" @click="emit('addbtn-click')">
+                <span class="red"><i class="fa-solid fa-circle-plus"></i> {{ addButtonString }}</span>
+            </div>
+            <div class="line-thin red-box"></div>
         </template>
         <i class="fa-solid fa-vector-square"></i>
     </div>
@@ -27,21 +33,22 @@
 </template>
 
 <script setup lang="ts">
-import { Inventory, Prisma } from '.prisma/client';
-import { buildProps } from '@vue/compiler-core';
 import ItemIcon from '../inventories/itemIcon.vue';
 import { ItemType } from '~/items/itemsUtil';
 
 const props = defineProps<{
+    noclick?: boolean,
     entries?: any[] | null,
     entryNameKey: string,
     entryDescKeys: ((e: any) => string[]) | string[],
-    entryDescFormat: string
+    entryDescFormat: string,
+    addButtonString?: string,
     getItemType?: ((e: any) => ItemType)
 }>();
 
 const emit = defineEmits([
-    "entry-click"
+    "entry-click",
+    "addbtn-click"
 ])
 
 function getEntryName(entry: any): string {
@@ -124,6 +131,11 @@ function getEntryDesc(entry: any): string {
 
 .cyber-list-entry.clickable:active {
     background-color: var(--clr-bg-red-active);
+}
+
+.cyber-list-entry.add-new {
+    padding: 0.25em;
+    text-align: center;
 }
 
 @container generic-list (max-width: 400px) {

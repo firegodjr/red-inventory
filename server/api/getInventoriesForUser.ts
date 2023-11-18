@@ -17,7 +17,11 @@ export default defineEventHandler(async (event) => {
             }
         },
         include: {
-            items: true,
+            items: {
+                include: {
+                    fields: true
+                }
+            },
             users: true
         }
     });

@@ -95,3 +95,14 @@ export enum ItemQuality {
     STANDARD,
     EXCELLENT
 }
+
+const ItemQualityToStringMap: Record<ItemQuality, string> = {
+    [ItemQuality.NONE]: "N/A",
+    [ItemQuality.POOR]: "Poor Quality",
+    [ItemQuality.STANDARD]: "Standard Quality",
+    [ItemQuality.EXCELLENT]: "Excellent Quality"
+};
+
+export function ItemQualityToString(type: ItemQuality): string {
+    return ItemQualityToStringMap[type];
+}

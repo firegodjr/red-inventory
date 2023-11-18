@@ -69,11 +69,11 @@
 }
 
 .line {
-  height: 0.25rem;
+  height: 3px;
 }
 
 .line-thin {
-  height: 0.1rem;
+  height: 1px;
 }
 
 .red-box {
