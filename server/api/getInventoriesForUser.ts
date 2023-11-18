@@ -17,13 +17,7 @@ export default defineEventHandler(async (event) => {
             }
         },
         include: {
-            _count: true,
-            items: {
-                
-                include: {
-                    fields: true,
-                }
-            },
+            items: true,
             users: true
         }
     });
@@ -31,8 +25,10 @@ export default defineEventHandler(async (event) => {
     return result.map(x => { 
         return {
             name: x.name,
-            users: x._count.users,
-            items: x._count.items
+            items: x.items,
+            users: x.users,
+            userCount: x.users.length,
+            itemCount: x.items.length
         }
     });
 });

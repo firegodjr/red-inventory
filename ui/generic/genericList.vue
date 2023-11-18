@@ -5,7 +5,8 @@
             <slot><i class="fa-solid fa-layer-group fa-sm"></i></slot>
         </div>
         <template v-for="entry in entries">
-            <div class="cyber-list-entry clickable" @click="() => emit('entry-click', entry)">
+            <div :tabindex="0" class="cyber-list-entry clickable" @click="() => emit('entry-click', entry)">
+                <ItemIcon v-if="getItemType" class="red" :item-type="getItemType(entry)" />
                 <span class="blue">{{ getEntryName(entry) }}</span>
                 <span class="desc white">{{ getEntryDesc(entry) }}</span>
                 <span class="chevron"><i class="fa-solid fa-caret-right"></i></span>
@@ -19,7 +20,7 @@
         </template>
         <i class="fa-solid fa-vector-square"></i>
     </div>
-    <p style="font-size: x-small; opacity: 50%;">
+    <p class="noselect" style="font-size: x-small; opacity: 50%;">
         <br />
         [ { "id": 1, "name": "Bathsheba", "items": [ { "id": 1, "name": "Militech XR-83", "type": "Heavy Ranged Weapon", "count": 1, "inventoryId": 1, "fields": [ { "id": 1, "name": "Damage", "value": "3d6", "itemId": 1 }, { "id": 2, "name": "Magazine Size", "value": "8", "itemId": 1 } ] }, { "id": 2, "name": "Arasaka Smart Shotgun", "type": "Heavy Ranged Weapon", "count": 1, "inventoryId": 1, "fields": [ { "id": 3, "name": "Damage", "value": "3d6", "itemId": 2 }, { "id": 4, "name": "Magazine Size", "value": "4", "itemId": 2 } ] } ], "users": [ { "id": 1, "email": "coyote@kickflip.gov" } ], "_count": { "users": 1, "items": 2 } }, { "id": 2, "name": "Dumpster on 12th & Main", "items": [ { "id": 3, "name": "Militech XR-83", "type": "Heavy Ranged Weapon", "count": 1, "inventoryId": 2, "fields": [ { "id": 5, "name": "Damage", "value": "3d6", "itemId": 3 }, { "id": 6, "name": "Magazine Size", "value": "8", "itemId": 3 } ] }, { "id": 4, "name": "Arasaka Smart Shotgun", "type": "Heavy Ranged Weapon", "count": 1, "inventoryId": 2, "fields": [ { "id": 7, "name": "Damage", "value": "3d6", "itemId": 4 }, { "id": 8, "name": "Magazine Size", "value": "4", "itemId": 4 } ] } ], "users": [ { "id": 1, "email": "coyote@kickflip.gov" } ], "_count": { "users": 1, "items": 2 } } ]
     </p>
@@ -28,12 +29,15 @@
 <script setup lang="ts">
 import { Inventory, Prisma } from '.prisma/client';
 import { buildProps } from '@vue/compiler-core';
+import ItemIcon from '../inventories/itemIcon.vue';
+import { ItemType } from '~/items/itemsUtil';
 
 const props = defineProps<{
     entries?: any[] | null,
     entryNameKey: string,
-    entryDescKeys: string[],
+    entryDescKeys: ((e: any) => string[]) | string[],
     entryDescFormat: string
+    getItemType?: ((e: any) => ItemType)
 }>();
 
 const emit = defineEmits([
@@ -46,8 +50,18 @@ function getEntryName(entry: any): string {
 
 function getEntryDesc(entry: any): string {
     let desc = props.entryDescFormat;
-    for(let i = 0; i < props.entryDescKeys.length; ++i) {
-        desc = desc.replaceAll(`{${i}}`, entry[props.entryDescKeys[i]]);
+    let descKeys: string[] = [];
+    if((props.entryDescKeys as any).at) {
+        descKeys = props.entryDescKeys as string[];
+        for(let i = 0; i < descKeys.length; ++i) {
+            desc = desc.replaceAll(`{${i}}`, entry[descKeys[i]]);
+        }
+    }
+    else {
+        descKeys = (props.entryDescKeys as (e: any) => string[])(entry);
+        for(let i = 0; i < descKeys.length; ++i) {
+            desc = desc.replaceAll(`{${i}}`, descKeys[i]);
+        }
     }
 
     return desc;

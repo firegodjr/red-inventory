@@ -17,6 +17,18 @@ label {
     background-color: var(--clr-bg-red);
     color: var(--clr-text-red);
   }
+
+  button.back-btn {
+    border-top: 2px solid var(--clr-text-yellow);
+    color: var(--clr-text-yellow);
+  }
+
+  button.back-btn::after {
+    transform: rotateZ(180deg);
+    background-color: var(--clr-text-yellow);
+  
+    transition: right 0.1s linear;
+  }
   
   button.green {
     border-top: 2px solid var(--clr-text-green);

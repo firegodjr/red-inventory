@@ -14,7 +14,7 @@ async function seed() {
                             create: [
                                 {
                                     name: "Militech XR-83",
-                                    type: "Heavy Ranged Weapon",
+                                    type: 11,
                                     count: 1,
                                     fields: {
                                         create: [
@@ -31,7 +31,7 @@ async function seed() {
                                 },
                                 {
                                     name: "Arasaka Smart Shotgun",
-                                    type: "Heavy Ranged Weapon",
+                                    type: 25,
                                     count: 1,
                                     fields: {
                                         create: [
@@ -55,7 +55,7 @@ async function seed() {
                             create: [
                                 {
                                     name: "Militech XR-83",
-                                    type: "Heavy Ranged Weapon",
+                                    type: 11,
                                     count: 1,
                                     fields: {
                                         create: [
@@ -72,7 +72,7 @@ async function seed() {
                                 },
                                 {
                                     name: "Arasaka Smart Shotgun",
-                                    type: "Heavy Ranged Weapon",
+                                    type: 25,
                                     count: 1,
                                     fields: {
                                         create: [
