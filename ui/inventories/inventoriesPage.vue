@@ -24,6 +24,7 @@
         <template v-slot:items>
             <button class="back-btn" @click="() => CurrPane = 'inventories'">Back to Inventories</button><br />
             <h1>{{ SelectedInventory?.name }}</h1>
+            <br />
             <GenericList 
             :add-button-string="'New Item'"
             :entries="SelectedInventory?.items" 

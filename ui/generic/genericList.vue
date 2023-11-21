@@ -1,29 +1,40 @@
 <template>
-    <div class="cyber-list noselect">
+    <div class="cyber-list-wrapper">
         <div class="line-box">
             <div class="line-thin red-box"></div>
-            <slot><i class="fa-solid fa-layer-group fa-sm"></i></slot>
+            <div class="list-icon">
+                <slot><i class="fa-solid fa-layer-group fa-sm"></i></slot>
+            </div>
         </div>
-        <template v-for="entry in entries">
-            <div :tabindex="0" class="cyber-list-entry" :class="{clickable: !noclick}" @click="() => emit('entry-click', entry)">
-                <ItemIcon v-if="getItemType" class="red" :item-type="getItemType(entry)" />
-                <span class="blue">{{ getEntryName(entry) }}</span>
-                <span class="desc white">{{ getEntryDesc(entry) }}</span>
-                <span v-if="!noclick" class="chevron"><i class="fa-solid fa-caret-right"></i></span>
-            </div>
-            <div class="line-thin red-box"></div>
-        </template>
-        <template v-if="entries == null || entries?.length == 0">
-            <div class="cyber-list-entry">
-                <span class="red">NO DATA</span>
-            </div>
-        </template>
-        <template v-if="addButtonString">
-            <div class="cyber-list-entry add-new clickable" @click="emit('addbtn-click')">
-                <span class="red"><i class="fa-solid fa-circle-plus"></i> {{ addButtonString }}</span>
-            </div>
-            <div class="line-thin red-box"></div>
-        </template>
+        <div class="cyber-list noselect">
+            <template v-for="entry in entries">
+                <div :tabindex="0" class="cyber-list-entry" :class="{clickable: !noclick}" @click="() => emit('entry-click', entry)">
+                    <ItemIcon v-if="getItemType" class="red" :item-type="getItemType(entry)" />
+                    <span class="blue">{{ getEntryName(entry) }}</span>
+                    <span class="desc white">{{ getEntryDesc(entry) }}</span>
+                    <span v-if="!noclick" class="chevron"><i class="fa-solid fa-caret-right"></i></span>
+                </div>
+                <div class="line-box">
+                    <div class="line-thin red-box"></div>
+                </div>
+            </template>
+            <template v-if="entries == null || entries?.length == 0">
+                <div class="cyber-list-entry">
+                    <span class="red">NO DATA</span>
+                </div>
+            </template>
+        </div>
+            <template v-if="addButtonString">
+                <div class="line-box">
+                    <div class="line-thin red-box"></div>
+                </div>
+                <div class="cyber-list-entry add-new clickable" @click="emit('addbtn-click')">
+                    <span class="red"><i class="fa-solid fa-circle-plus"></i> {{ addButtonString }}</span>
+                </div>
+                <div class="line-box">
+                    <div class="line-thin red-box"></div>
+                </div>
+            </template>
         <i class="fa-solid fa-vector-square"></i>
     </div>
     <p class="noselect" style="font-size: x-small; opacity: 50%;">
@@ -75,39 +86,47 @@ function getEntryDesc(entry: any): string {
 }
 </script>
 
-<style>
+<style scoped>
+.cyber-list-wrapper {
+    position: relative;
+    font-size: large;
+}
+
 .cyber-list {
     display: grid;
     position: relative;
-    font-size: large;
     font-weight: bold;
-    background-color: var(--clr-bg-red);
-    margin-left: 1.40em;
+    max-height: 50vh;
+    overflow-y: auto;
 
     container-type: inline-size;
     container-name: generic-list;
 }
 
-.cyber-list > i {
+.cyber-list-wrapper > i {
     position: absolute;
-    left: -1.25em;
+    left: 1em;
     font-size: x-small;
-    bottom: -0.07em;
+    top: initial;
+    bottom: 0.1em;
 }
 
 .line-box {
     position: relative;
+    margin-left: 1.40em;
 }
 
-.line-box > i {
+.line-box > .list-icon {
     position: absolute;
     left: -1.50em;
-    top: 0.50em;
+    top: 0;
 }
 
 .cyber-list-entry {
     position: relative;
     padding: 0.75em;
+    margin-left: 1.40em;
+    background-color: var(--clr-bg-red);
 }
 
 .cyber-list-entry > .desc {

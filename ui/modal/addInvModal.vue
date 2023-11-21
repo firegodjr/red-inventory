@@ -1,6 +1,6 @@
 <template>
     <div class="red modal">
-        <div class="line-box">
+        <div class="modal-line-box">
             <div class="red-box line-thin"></div>
             <i class="fa-solid fa-plus"></i>
         </div>

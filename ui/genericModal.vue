@@ -64,7 +64,7 @@ let show = ref(false);
 
 }
 
-.line-box > i {
+.modal-line-box > i {
     position: absolute;
     left: -1.50em;
     top: 0.50em;
