@@ -1,6 +1,5 @@
 <template>
     <HoloPanes 
-    ref="InvPanes"
     :show-header="false"
     :pane-names="['inventories', 'items', 'itemView']"
     :curr-pane="CurrPane">
@@ -17,13 +16,14 @@
             :entry-desc-keys="['itemCount', 'userCount']"
             :entry-desc-format="'Items: {0} - Users: {1}'" 
             @addbtn-click="handleAddInventory"
-            @entry-click="handleSelectInventory">
+            @entry-click="handleInvSelected">
                 <i class="fa-solid fa-layer-group fa-sm"></i>
             </GenericList>
         </template>
         <template v-slot:items>
             <button class="back-btn" @click="() => CurrPane = 'inventories'">Back to Inventories</button><br />
             <h1>{{ SelectedInventory?.name }}</h1>
+            
             <br />
             <GenericList 
             :add-button-string="'New Item'"
@@ -33,7 +33,7 @@
             :entry-desc-format="'{0} {1} x{2}'" 
             :get-item-type="(e) => e.type"
             @addbtn-click="handleAddItem"
-            @entry-click="handleSelectItem">
+            @entry-click="handleItemSelected">
                 <i class="fa-solid fa-boxes-stacked"></i>
             </GenericList>
         </template>
@@ -78,7 +78,7 @@ const emit = defineEmits([
     'reqest-modal'
 ])
 
-async function handleSelectInventory(e: any) {
+async function handleInvSelected(e: any) {
     SelectedInventory.value = e;
     CurrPane.value = 'items';
 }
@@ -87,15 +87,12 @@ function handleAddInventory(e: any) {
     emit('reqest-modal', ModalType.NEW_INV);
 }
 
-async function handleSelectItem(e: any) {
+async function handleItemSelected(e: any) {
     SelectedItem.value = e;
     CurrPane.value = 'itemView'
 }
 
 function handleAddItem(e: any) {
-    emit('reqest-modal', ModalType.NEW_ITEM)
+    emit('reqest-modal', ModalType.NEW_INV_ITEM)
 }
-
-onMounted(() => {
-});
 </script>

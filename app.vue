@@ -4,21 +4,11 @@
     <NavFrame>
 
         <template v-slot:invs>
-            <InventoriesPage :inventories="(inventories as any)" @reqest-modal="showModal"></InventoriesPage>
+            <InventoriesPage :inventories="(inventories as any)" @reqest-modal="showModal" />
         </template>
 
         <template v-slot:arch>
-            <div class="relative">
-                <h1>NET ARCHITECTURES</h1>
-                <p>Your home away from meatspace.</p>
-                <div @click="showAddArchitecture" class="add-new noselect green p-3 absolute top-3 right-0">
-                    <h2><i class="fa-solid fa-circle-plus"></i><span> New Architecture</span></h2>
-                </div>
-            </div>
-            <br />
-            <GenericList :entries="[]" :entry-name-key="'name'" :entry-desc-keys="[]" :entry-desc-format="''">
-                <i class="fa-solid fa-code fa-sm"></i>
-            </GenericList>
+            <ArchitecturesPage :architectures="[]" @reqest-modal="showModal"/>
         </template>
 
         <template v-slot:acct>
@@ -37,6 +27,7 @@ import NavFrame from "./ui/navFrame.vue";
 import AddInvModal from "./ui/modal/addInvModal.vue";
 import TwoPane from "./ui/generic/holoPanes.vue";
 import InventoriesPage from "./ui/inventories/inventoriesPage.vue";
+import ArchitecturesPage from "./ui/architectures/architecturesPage.vue";
 
 useHead({
     script: [

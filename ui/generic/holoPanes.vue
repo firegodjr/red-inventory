@@ -4,7 +4,13 @@
     <div class="holo-pane-wrapper">
         <div v-for="pane in paneNames" class="pane" :class="{hidden: currPane != pane}" :style="getPaneStyle(pane, currPaneIndex)">
             <h2 v-if="showHeader">{{ pane }}</h2>
-            <slot :name="pane"><h1>Hello Gamers</h1></slot>
+            <slot :name="pane">
+                <div class="yellow">
+                    <h1>HoloPane isn't properly set up.</h1>
+                    <p>Make sure that the value for paneNames and the name of your v-slot bindings match
+                    </p>
+                </div>
+            </slot>
         </div>
     </div>
 </template>
@@ -24,7 +30,6 @@ const emit = defineEmits([
 
 let currPaneIndex = ref(0)
 let currPane = ref("");
-let paneInput: Ref<HTMLInputElement | null> = ref(null);
 
 onMounted(() => {
     watchEffect(() => {
