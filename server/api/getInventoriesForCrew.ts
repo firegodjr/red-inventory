@@ -4,15 +4,15 @@ const prisma = new PrismaClient();
 
 // TODO skip/take
 export default defineEventHandler(async (event) => {
-    let { userId } = await readBody(event);
+    let { id } = await readBody(event);
+
+    // TODO can logged in user access this crew?
 
     let result = await prisma.inventory.findMany({
         where: {
-            users: {
-                some: {
-                    id: {
-                        equals: userId
-                    }
+            crew: {
+                id: {
+                    equals: id
                 }
             }
         },
@@ -21,8 +21,7 @@ export default defineEventHandler(async (event) => {
                 include: {
                     fields: true
                 }
-            },
-            users: true
+            }
         }
     });
 
@@ -30,8 +29,6 @@ export default defineEventHandler(async (event) => {
         return {
             name: x.name,
             items: x.items,
-            users: x.users,
-            userCount: x.users.length,
             itemCount: x.items.length
         }
     });

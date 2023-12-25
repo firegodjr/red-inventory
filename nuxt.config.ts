@@ -8,5 +8,6 @@ export default defineNuxtConfig({
       autoprefixer: {}
     }
   },
-  sourcemap: true
+  sourcemap: true,
+  ssr: false
 })

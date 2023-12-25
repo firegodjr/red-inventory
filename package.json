@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "@types/uuid": "^9.0.7",
     "autoprefixer": "^10.4.16",
     "nuxt": "^3.7.4",
     "postcss": "^8.4.31",
@@ -20,7 +21,8 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
-    "@prisma/client": "^5.5.2"
+    "@prisma/client": "^5.5.2",
+    "uuid": "^9.0.1"
   },
   "prisma": {
     "seed": "node prisma/seed.js"

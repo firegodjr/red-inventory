@@ -12,22 +12,26 @@
         </template>
 
         <template v-slot:acct>
-            <h1>ACCOUNT</h1>
-            <p>Your detes.</p>
+            
         </template>
 
     </NavFrame>
+
+    <div class="login-debug yellow">
+        Logged in as: {{ UserString }}
+    </div>
 </template>
 
 <script setup lang="ts">
-import GenericModal from "./ui/genericModal.vue";
-import GenericList from "./ui/generic/genericList.vue";
-import { ModalType } from "./ui/modal";
-import NavFrame from "./ui/navFrame.vue";
-import AddInvModal from "./ui/modal/addInvModal.vue";
-import TwoPane from "./ui/generic/holoPanes.vue";
-import InventoriesPage from "./ui/inventories/inventoriesPage.vue";
-import ArchitecturesPage from "./ui/architectures/architecturesPage.vue";
+import GenericModal from "../ui/genericModal.vue";
+import GenericList from "../ui/generic/genericList.vue";
+import { ModalType } from "../ui/modal";
+import NavFrame from "../ui/navFrame.vue";
+import AddInvModal from "../ui/modal/addInvModal.vue";
+import TwoPane from "../ui/generic/holoPanes.vue";
+import InventoriesPage from "../ui/inventories/inventoriesPage.vue";
+import ArchitecturesPage from "../ui/architectures/architecturesPage.vue";
+import AccountPage from "../ui/account/accountPage.vue";
 
 useHead({
     script: [
@@ -42,13 +46,21 @@ useHead({
 let ModalDisplay = ref(false);
 let CurrModalType = ref(ModalType.CONFIRM);
 let CurrModal: Ref<object | null> = ref(null);
+let UserString: Ref<string> = ref("");
 
-const { data: inventories } = await useFetch("/api/getInventoriesForUser", {
+const { data: inventories } = await useFetch("/api/getInventoriesForCrew", {
     method: 'post',
     body: {
-        email: "coyote@kickflip.gov"
+        id: 1
     }
 });
+
+onMounted(async () => {
+    let userString = await getUserString();
+    if(userString) {
+        UserString.value = userString;
+    }
+})
 
 function showAddInventory() {
     CurrModal.value = AddInvModal;
@@ -85,23 +97,24 @@ function handleModalSubmit(e: any) {
 function handleModalCancel(e: any) {
     ModalDisplay.value = false;
 }
+
+async function getUserString() {
+    var user = await useFetch("/api/getUser", {
+        credentials: "include"
+    });
+
+    if(!user.data.value?.username) {
+        navigateTo("/login");
+    }
+
+    return user.data.value?.username
+}
 </script>
 
 <style>
-@import url(./assets/css/ui.css);
-
-body {
-    height: 100vh;
-    background: rgb(0, 22, 20);
-    background: linear-gradient(0deg, rgb(0, 14, 12) 0%, #27080f 100%);
-    overflow-x:hidden;
-}
-
-.add-new:hover {
-    background-color: var(--clr-bg-green);
-}
-
-.add-new:active {
-    background-color: var(--clr-bg-green-active);
+.login-debug {
+    position: fixed;
+    bottom: 0;
+    padding: 0.5em;
 }
 </style>

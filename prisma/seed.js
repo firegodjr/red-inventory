@@ -6,97 +6,107 @@ async function seed() {
     const testUser = await prisma.user.create({
         data: {
             email: "coyote@kickflip.gov",
-            inventories: {
+            username: "coyote",
+            pwdhash: "",
+            crews: {
                 create: [
                     {
-                        name: "Bathsheba",
-                        items: {
+                        name: "DEADDROP",
+                        guid: "",
+                        inventories: {
                             create: [
                                 {
-                                    name: "Militech XR-83",
-                                    type: 11,
-                                    count: 1,
-                                    quality: 2,
-                                    fields: {
+                                    name: "Bathsheba",
+                                    items: {
                                         create: [
                                             {
-                                                name: "Damage",
-                                                value: "3d6"
+                                                name: "Militech XR-83",
+                                                type: 11,
+                                                count: 1,
+                                                quality: 2,
+                                                fields: {
+                                                    create: [
+                                                        {
+                                                            name: "Damage",
+                                                            value: "3d6"
+                                                        },
+                                                        {
+                                                            name: "Magazine Size",
+                                                            value: "8"
+                                                        }
+                                                    ]
+                                                }
                                             },
                                             {
-                                                name: "Magazine Size",
-                                                value: "8"
+                                                name: "Sandevistan",
+                                                type: 4,
+                                                count: 1,
+                                                quality: 3,
+                                                fields: {
+                                                    create: [
+                                                    ]
+                                                }
                                             }
                                         ]
                                     }
                                 },
                                 {
-                                    name: "Sandevistan",
-                                    type: 4,
-                                    count: 1,
-                                    quality: 3,
-                                    fields: {
-                                        create: [
-                                        ]
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        name: "Dumpster on 12th & Main",
-                        items: {
-                            create: [
-                                {
-                                    name: "Severed Cyberear",
-                                    type: 1,
-                                    count: 1,
-                                    quality: 1,
-                                    fields: {
+                                    name: "Dumpster on 12th & Main",
+                                    items: {
                                         create: [
                                             {
-                                                name: "Damage",
-                                                value: "3d6"
+                                                name: "Severed Cyberear",
+                                                type: 1,
+                                                count: 1,
+                                                quality: 1,
+                                                fields: {
+                                                    create: [
+                                                        {
+                                                            name: "Damage",
+                                                            value: "3d6"
+                                                        },
+                                                        {
+                                                            name: "Magazine Size",
+                                                            value: "8"
+                                                        }
+                                                    ]
+                                                }
                                             },
                                             {
-                                                name: "Magazine Size",
-                                                value: "8"
-                                            }
-                                        ]
-                                    }
-                                },
-                                {
-                                    name: "Militech XR-83",
-                                    type: 11,
-                                    count: 1,
-                                    quality: 2,
-                                    fields: {
-                                        create: [
-                                            {
-                                                name: "Damage",
-                                                value: "3d6"
+                                                name: "Militech XR-83",
+                                                type: 11,
+                                                count: 1,
+                                                quality: 2,
+                                                fields: {
+                                                    create: [
+                                                        {
+                                                            name: "Damage",
+                                                            value: "3d6"
+                                                        },
+                                                        {
+                                                            name: "Magazine Size",
+                                                            value: "8"
+                                                        }
+                                                    ]
+                                                }
                                             },
                                             {
-                                                name: "Magazine Size",
-                                                value: "8"
-                                            }
-                                        ]
-                                    }
-                                },
-                                {
-                                    name: "Arasaka Smart Shotgun",
-                                    type: 25,
-                                    count: 1,
-                                    quality: 3,
-                                    fields: {
-                                        create: [
-                                            {
-                                                name: "Damage",
-                                                value: "3d6"
-                                            },
-                                            {
-                                                name: "Magazine Size",
-                                                value: "4"
+                                                name: "Arasaka Smart Shotgun",
+                                                type: 25,
+                                                count: 1,
+                                                quality: 3,
+                                                fields: {
+                                                    create: [
+                                                        {
+                                                            name: "Damage",
+                                                            value: "3d6"
+                                                        },
+                                                        {
+                                                            name: "Magazine Size",
+                                                            value: "4"
+                                                        }
+                                                    ]
+                                                }
                                             }
                                         ]
                                     }
@@ -106,6 +116,7 @@ async function seed() {
                     }
                 ]
             }
+
         }
     })
 }
