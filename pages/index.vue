@@ -2,7 +2,6 @@
     <GenericModal v-if="ModalDisplay" :type="CurrModalType" :modal="CurrModal" @submit="handleModalSubmit"
         @cancel="handleModalCancel" />
     <NavFrame>
-
         <template v-slot:invs>
             <InventoriesPage :inventories="(inventories as any)" @reqest-modal="showModal" />
         </template>
@@ -12,13 +11,14 @@
         </template>
 
         <template v-slot:acct>
-            
+            <AccountPage />
         </template>
 
     </NavFrame>
 
     <div class="login-debug yellow">
         Logged in as: {{ UserString }}
+        <button @click="handleLogoutClick">Logout</button>
     </div>
 </template>
 
@@ -28,10 +28,10 @@ import GenericList from "../ui/generic/genericList.vue";
 import { ModalType } from "../ui/modal";
 import NavFrame from "../ui/navFrame.vue";
 import AddInvModal from "../ui/modal/addInvModal.vue";
-import TwoPane from "../ui/generic/holoPanes.vue";
 import InventoriesPage from "../ui/inventories/inventoriesPage.vue";
 import ArchitecturesPage from "../ui/architectures/architecturesPage.vue";
 import AccountPage from "../ui/account/accountPage.vue";
+import { HandleLogout } from "~/util/loginUtil";
 
 useHead({
     script: [
@@ -48,11 +48,9 @@ let CurrModalType = ref(ModalType.CONFIRM);
 let CurrModal: Ref<object | null> = ref(null);
 let UserString: Ref<string> = ref("");
 
-const { data: inventories } = await useFetch("/api/getInventoriesForCrew", {
+const { data: inventories } = await useFetch("/api/user/getInventoriesForSelectedCrew", {
     method: 'post',
-    body: {
-        id: 1
-    }
+    credentials: 'include',
 });
 
 onMounted(async () => {
@@ -60,16 +58,7 @@ onMounted(async () => {
     if(userString) {
         UserString.value = userString;
     }
-})
-
-function showAddInventory() {
-    CurrModal.value = AddInvModal;
-    ModalDisplay.value = true;
-}
-function showAddArchitecture() {
-    CurrModal.value = null; //TODO
-    ModalDisplay.value = true;
-}
+});
 
 function showModal(e: ModalType) {
     ModalDisplay.value = true;
@@ -89,7 +78,6 @@ function createModal(e: ModalType) {
 function handleModalSubmit(e: any) {
     switch (e.modalType) {
         case ModalType.NEW_INV:
-
             break;
     }
 }
@@ -98,8 +86,13 @@ function handleModalCancel(e: any) {
     ModalDisplay.value = false;
 }
 
+async function handleLogoutClick(e: any) {
+    await HandleLogout();
+    navigateTo("/login");
+}
+
 async function getUserString() {
-    var user = await useFetch("/api/getUser", {
+    var user = await useFetch("/api/user/getUser", {
         credentials: "include"
     });
 
@@ -117,4 +110,6 @@ async function getUserString() {
     bottom: 0;
     padding: 0.5em;
 }
+
+
 </style>

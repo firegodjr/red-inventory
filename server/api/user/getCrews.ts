@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { GetUserFromRequest } from "../authUtil";
+import { GetUserFromRequest } from "~/server/authUtil";
 const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
         where: {
             users: {
                 some: {
-                    id: user.id
+                    id: user?.id
                 }
             }
         }

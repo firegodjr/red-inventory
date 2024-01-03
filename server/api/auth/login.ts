@@ -1,6 +1,6 @@
 import { PrismaClient, User } from "@prisma/client";
 import { v4 as uuidv4 } from 'uuid';
-import { Hash, SESSION_COOKIE } from "../../authUtil";
+import { GetSessionExpiry, Hash, SESSION_COOKIE } from "../../authUtil";
 const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
@@ -19,7 +19,8 @@ export default defineEventHandler(async (event) => {
         await prisma.session.create({
             data: {
                 userId: user.id,
-                token: uniqueToken
+                token: uniqueToken,
+                expiration: GetSessionExpiry(3*24*60)
             }
         })
 

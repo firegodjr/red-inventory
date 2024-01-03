@@ -10,3 +10,7 @@ export function GetUserFromRequest(event: any): User | null {
 export function Hash(s: string) {
     return s;
 }
+
+export function GetSessionExpiry(minutes: number = 15): Date {
+    return new Date(Date.now() + minutes*60*1000);
+}

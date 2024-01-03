@@ -1,5 +1,5 @@
 import { PrismaClient, User } from "@prisma/client";
-import { SESSION_COOKIE } from "../authUtil";
+import { GetSessionExpiry, SESSION_COOKIE } from "~/server/authUtil";
 const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
@@ -14,16 +14,27 @@ export default defineEventHandler(async (event) => {
         });
 
         if(session) {
+            if(new Date() > session.expiration) {
+                return;
+            }
+            else {
+                session.expiration = GetSessionExpiry(3*24*60);
+                prisma.session.update({
+                    data: session,
+                    where: {
+                        token: token
+                    }
+                });
+            }
+
             const user = await prisma.user.findUnique({
                 where: {
                     id: session?.userId
                 }
             });
-
-            console.log(user);
     
             if (user) {
-                event.context.user = toUserDTO(user);
+                event.context.user = user;
             }
             else {
                 console.error("Found session but no user?");
@@ -37,7 +48,3 @@ export default defineEventHandler(async (event) => {
         console.error("User is not signed in.");
     }
 });
-
-function toUserDTO(user: { id: number; email: string; username: string; pwdhash: string; }): any {
-    return { id: user.id, email: user.email, username: user.username }
-}

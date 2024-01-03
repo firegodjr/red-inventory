@@ -51,6 +51,7 @@ onMounted(() => {
 <style>
 .wrapper {
     padding: 0 1em;
+    container-name: "wrapper";
 }
 
 .buttons {

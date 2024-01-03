@@ -11,7 +11,7 @@
             <br />
             <GenericList 
             :add-button-string="'New Inventory'"
-            :entries="inventories" 
+            :entries="Inventories" 
             :entry-name-key="'name'" 
             :entry-desc-keys="['itemCount', 'userCount']"
             :entry-desc-format="'Items: {0} - Users: {1}'" 
@@ -65,18 +65,24 @@ import GenericList from '../generic/genericList.vue';
 import ItemIcon from './itemIcon.vue';
 import { ItemQuality, ItemType, ItemTypeToString, ItemQualityToString } from '~/items/itemsUtil';
 import ItemQualityStr from './itemQualityStr.vue';
+import { Inventory } from '@prisma/client';
 
 let SelectedInventory: Ref<any | null> = ref(null);
 let SelectedItem: Ref<any | null> = ref(null);
 let CurrPane = ref('inventories');
-
-const props = defineProps<{
-    inventories: any[]
-}>();
+let Inventories: Ref<Inventory[]> = ref([]);
 
 const emit = defineEmits([
     'reqest-modal'
 ])
+
+onMounted(async () => {
+    let inventories = await useFetch(
+    '/api/user/getInventoriesForSelectedCrew', {
+        credentials: 'include'
+    });
+    Inventories.value = inventories.data.value as any;
+});
 
 async function handleInvSelected(e: any) {
     SelectedInventory.value = e;

@@ -7,7 +7,8 @@ async function seed() {
         data: {
             email: "coyote@kickflip.gov",
             username: "coyote",
-            pwdhash: "",
+            pwdhash: "password",
+            selectedCrewId: 1,
             crews: {
                 create: [
                     {

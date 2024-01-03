@@ -11,9 +11,10 @@ datasource db {
 }
 
 model Session {
-  id     Int    @id @default(autoincrement())
-  token  String @unique
-  userId Int
+  id         Int      @id @default(autoincrement())
+  token      String   @unique
+  expiration DateTime @default(value: now())
+  userId     Int
 }
 
 model Crew {
@@ -25,11 +26,12 @@ model Crew {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
-  username String @unique
-  pwdhash  String
-  crews    Crew[]
+  id             Int    @id @default(autoincrement())
+  email          String @unique
+  username       String @unique
+  pwdhash        String
+  crews          Crew[]
+  selectedCrewId Int
 }
 
 model Inventory {
