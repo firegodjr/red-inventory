@@ -1,14 +1,16 @@
 import { PrismaClient, User } from "@prisma/client";
+import { GetTokenFromRequest, GetUserFromRequest } from "~/server/authUtil";
 
 const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
-    if(event.context.user) {
-        prisma.session.deleteMany({
+    let token = GetTokenFromRequest(event);
+    if(token) {
+        // Delete the session token from the server
+        await prisma.session.deleteMany({
             where: {
-                userId: event.context.user?.id
-            }
-        })
-        //TODO remove user token from server
+                token: token
+            },
+        });
     }
 });

@@ -10,6 +10,10 @@
             <ArchitecturesPage :architectures="[]" @reqest-modal="showModal"/>
         </template>
 
+        <template v-slot:crew>
+            <CrewsPage />
+        </template>
+
         <template v-slot:acct>
             <AccountPage />
         </template>
@@ -30,6 +34,7 @@ import NavFrame from "../ui/navFrame.vue";
 import AddInvModal from "../ui/modal/addInvModal.vue";
 import InventoriesPage from "../ui/inventories/inventoriesPage.vue";
 import ArchitecturesPage from "../ui/architectures/architecturesPage.vue";
+import CrewsPage from "../ui/crews/crewsPage.vue";
 import AccountPage from "../ui/account/accountPage.vue";
 import { HandleLogout } from "~/util/loginUtil";
 

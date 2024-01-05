@@ -35,6 +35,7 @@ export default defineEventHandler(async (event) => {
     
             if (user) {
                 event.context.user = user;
+                event.context.userToken = token;
             }
             else {
                 console.error("Found session but no user?");
@@ -45,6 +46,6 @@ export default defineEventHandler(async (event) => {
         }
     }
     else {
-        console.error("User is not signed in.");
+        // console.error(event._path + ": User is not signed in.");
     }
 });

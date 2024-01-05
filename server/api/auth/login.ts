@@ -5,7 +5,6 @@ const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
     let { username, password } = await readBody(event);
-    console.log("Loggin in user...");
 
     // Check username and password hash
     let user = await prisma.user.findUnique({
@@ -24,7 +23,6 @@ export default defineEventHandler(async (event) => {
             }
         })
 
-        console.log("Logged in! :)");
         return { token: uniqueToken, error: "" };
     }
     else {

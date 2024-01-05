@@ -9,6 +9,7 @@
         <div class="cyber-list noselect">
             <template v-for="entry in entries">
                 <div :tabindex="0" class="cyber-list-entry" :class="{clickable: !noclick}" @click="() => emit('entry-click', entry)">
+                    
                     <ItemIcon v-if="getItemType" class="red" :item-type="getItemType(entry)" />
                     <span class="blue">{{ getEntryName(entry) }}</span>
                     <span class="desc white">{{ getEntryDesc(entry) }}</span>
@@ -54,6 +55,8 @@ const props = defineProps<{
     entryDescKeys: ((e: any) => string[]) | string[],
     entryDescFormat: string,
     addButtonString?: string,
+    allowSelection?: boolean,
+    selectedEntry?: any,
     getItemType?: ((e: any) => ItemType)
 }>();
 

@@ -7,6 +7,10 @@ export function GetUserFromRequest(event: any): User | null {
     return event?.context?.user as User;
 }
 
+export function GetTokenFromRequest(event: any): string | null {
+    return event?.context?.userToken as string;
+}
+
 export function Hash(s: string) {
     return s;
 }

@@ -8,6 +8,9 @@
                 <div id="arch" @click="() => SetState(NavState.Architectures)">
                     <i class="fa-solid fa-code fa-sm"></i><span> Architectures</span>
                 </div>
+                <div id="crew" @click="() => SetState(NavState.Crews)">
+                    <i class="fa-solid fa-handshake fa-sm"></i><span> Crews</span>
+                </div>
                 <div id="acct" @click="() => SetState(NavState.Account)">
                     <i class="fa-solid fa-user-large fa-sm"></i><span> Account</span>
                 </div>
@@ -17,6 +20,7 @@
         <div class="content-frame red">
             <slot name="invs" v-if="Selected == NavState.Inventories"></slot>
             <slot name="arch" v-if="Selected == NavState.Architectures"></slot>
+            <slot name="crew" v-if="Selected == NavState.Crews"></slot>
             <slot name="acct" v-if="Selected == NavState.Account"></slot>
         </div>
     </div>
@@ -26,7 +30,8 @@
 enum NavState {
     Inventories = "invs",
     Architectures = "arch",
-    Account = "acct"
+    Account = "acct",
+    Crews = "crew"
 }
 
 let Selected: Ref<NavState> = ref(NavState.Inventories);
@@ -56,7 +61,7 @@ onMounted(() => {
 
 .buttons {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     font-weight: bold;
     margin: auto;
     max-width: 50em;
