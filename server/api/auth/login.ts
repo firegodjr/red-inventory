@@ -26,7 +26,6 @@ export default defineEventHandler(async (event) => {
         return { token: uniqueToken, error: "" };
     }
     else {
-        // TODO send this to the user
         console.log("Failed to login");
         if(user) {
             return { token: "", error: "Password is incorrect" };

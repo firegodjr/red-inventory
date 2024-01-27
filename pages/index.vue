@@ -3,7 +3,7 @@
         @cancel="handleModalCancel" />
     <NavFrame>
         <template v-slot:invs>
-            <InventoriesPage :inventories="(inventories as any)" @reqest-modal="showModal" />
+            <InventoriesPage v-if="!LoadingInventories" @reqest-modal="showModal" />
         </template>
 
         <template v-slot:arch>
@@ -53,10 +53,7 @@ let CurrModalType = ref(ModalType.CONFIRM);
 let CurrModal: Ref<object | null> = ref(null);
 let UserString: Ref<string> = ref("");
 
-const { data: inventories } = await useFetch("/api/user/getInventoriesForSelectedCrew", {
-    method: 'post',
-    credentials: 'include',
-});
+let LoadingInventories: Ref<boolean> = ref(false);
 
 onMounted(async () => {
     let userString = await getUserString();
@@ -64,6 +61,11 @@ onMounted(async () => {
         UserString.value = userString;
     }
 });
+
+function refreshInventories() {
+    LoadingInventories.value = true;
+    LoadingInventories.value = false;
+}
 
 function showModal(e: ModalType) {
     ModalDisplay.value = true;
@@ -80,9 +82,15 @@ function createModal(e: ModalType) {
     }
 }
 
-function handleModalSubmit(e: any) {
+async function handleModalSubmit(e: any) {
     switch (e.modalType) {
         case ModalType.NEW_INV:
+            await useFetch("/api/addInventory", {
+                method: "post",
+                credentials: "include",
+                body: { name: e.name }
+            });
+            refreshInventories();
             break;
     }
 }
