@@ -8,12 +8,11 @@ async function seed() {
             email: "coyote@kickflip.gov",
             username: "coyote",
             pwdhash: "password",
-            selectedCrewId: 1,
+            selectedCrewId: null,
             crews: {
                 create: [
                     {
                         name: "DEADDROP",
-                        guid: "",
                         inventories: {
                             create: [
                                 {

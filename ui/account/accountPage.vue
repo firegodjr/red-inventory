@@ -7,6 +7,7 @@
         <h2><span class="red">Email <i class="fa-solid fa-caret-right"></i></span> {{ UserInfo.email }}</h2>
         <label>Current Crew</label>
         <select @change="handleCrewSelected">
+            <option>None</option>
             <option v-for="crew in CrewsForUser" value="">{{ crew.name }}</option>
         </select>
     </div>
@@ -32,6 +33,8 @@ onMounted(async () => {
 
     CrewsForUser.value = crews.data.value as any;
     UserInfo.value = userInfo.data.value as any;
+
+    // TODO select currently selected crew here
 });
 
 function handleCrewSelected(e: any) {

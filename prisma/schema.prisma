@@ -11,52 +11,51 @@ datasource db {
 }
 
 model Session {
-  id         Int      @id @default(autoincrement())
+  id         String   @id @default(uuid())
   token      String   @unique
   expiration DateTime @default(value: now())
-  userId     Int
+  userId     String
 }
 
 model Crew {
-  id          Int         @id @default(autoincrement())
-  guid        String      @unique
+  id          String      @id @default(uuid())
   name        String
   users       User[]
   inventories Inventory[]
 }
 
 model User {
-  id             Int    @id @default(autoincrement())
+  id             String @id @default(uuid())
   email          String @unique
   username       String @unique
   pwdhash        String
   crews          Crew[]
-  selectedCrewId Int
+  selectedCrewId String? 
 }
 
 model Inventory {
-  id     Int    @id @default(autoincrement())
+  id     String @id @default(uuid())
   name   String
   crew   Crew   @relation(fields: [crewId], references: [id])
   items  Item[]
-  crewId Int
+  crewId String
 }
 
 model Item {
-  id          Int       @id @default(autoincrement())
+  id          String    @id @default(uuid())
   name        String
   type        Int
   count       Int
   quality     Int
   fields      Field[]
   inventory   Inventory @relation(fields: [inventoryId], references: [id])
-  inventoryId Int
+  inventoryId String
 }
 
 model Field {
-  id     Int    @id @default(autoincrement())
+  id     String @id @default(uuid())
   name   String
   value  String
   item   Item   @relation(fields: [itemId], references: [id])
-  itemId Int
+  itemId String
 }

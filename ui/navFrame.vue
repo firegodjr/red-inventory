@@ -92,6 +92,8 @@ onMounted(() => {
 .content-frame {
     padding: 1em;
     padding-top: 2em;
+    max-width: 70rem;
+    margin: auto;
 }
 
 .nav {
