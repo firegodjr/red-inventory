@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "@types/collections": "^5.1.5",
     "@types/uuid": "^9.0.7",
     "autoprefixer": "^10.4.16",
     "nuxt": "^3.7.4",
@@ -22,6 +23,8 @@
   },
   "dependencies": {
     "@prisma/client": "^5.5.2",
+    "bull": "^4.12.2",
+    "collections": "^5.1.13",
     "uuid": "^9.0.1"
   },
   "prisma": {
