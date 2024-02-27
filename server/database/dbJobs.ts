@@ -1,5 +1,4 @@
-import { Crew, Field, Inventory, Item, PrismaClient, User } from "@prisma/client";
-import { Hash } from "../authUtil";
+import { Crew, Inventory, Item, PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 /**
@@ -19,15 +18,51 @@ export enum JobType {
     DELETE_CREW,
     CREATE_ITEM,
     UPDATE_ITEM,
-    MOVE_ITEM,
-    CHECKOUT_ITEM,
     DELETE_ITEM,
     CREATE_FIELD,
     UPDATE_FIELD,
     DELETE_FIELD
 }
 
+/**
+ * Contains function implementations to be executed in a job queue 
+ * and broadcast as an update to all connected clients.
+ */
 export namespace Jobs {
+
+    /**
+     * Run the appropriate job function based on the job type.
+     * @param job The job to run.
+     */
+    export function Run(job: QueueableJob): Promise<any> {
+        switch(job.jobType) {
+            case JobType.CREATE_INVENTORY:
+                return CreateInventory(job.param)
+            case JobType.UPDATE_INVENTORY:
+                return UpdateInventory(job.param)
+            case JobType.DELETE_INVENTORY:
+                return DeleteInventory(job.param)
+            case JobType.CREATE_CREW:
+                return CreateCrew(job.param)
+            case JobType.UPDATE_CREW:
+                return UpdateCrew(job.param)
+            case JobType.DELETE_CREW:
+                return DeleteCrew(job.param)
+            case JobType.CREATE_ITEM:
+                return CreateItem(job.param)
+            case JobType.UPDATE_ITEM:
+                return UpdateItem(job.param)
+            case JobType.DELETE_ITEM:
+                return DeleteItem(job.param)
+            case JobType.CREATE_FIELD:
+                return CreateField(job.param)
+            case JobType.UPDATE_FIELD:
+                return UpdateField(job.param)
+            case JobType.DELETE_FIELD:
+                return DeleteField(job.param)
+        }
+    }
+
     export interface CreateParams<T> {
         newObj: T
     }

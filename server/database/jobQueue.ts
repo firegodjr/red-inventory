@@ -31,38 +31,16 @@ export default class DbQueue {
 
         this.queue.process((job) => {
             console.log("Processing job " + job.id);
-            let data = job.data as QueueableJob;
+            let qjob = job.data as QueueableJob;
             
-            switch(data.jobType) {
-                case JobType.CREATE_INVENTORY:
-                    return Jobs.CreateInventory(data.param)
-                case JobType.UPDATE_INVENTORY:
-                    return Jobs.UpdateInventory(data.param)
-                case JobType.DELETE_INVENTORY:
-                    return Jobs.DeleteInventory(data.param)
-                case JobType.CREATE_CREW:
-                    return Jobs.CreateCrew(data.param)
-                case JobType.UPDATE_CREW:
-                    return Jobs.UpdateCrew(data.param)
-                case JobType.DELETE_CREW:
-                    return Jobs.DeleteCrew(data.param)
-                case JobType.CREATE_ITEM:
-                    return Jobs.CreateItem(data.param)
-                case JobType.UPDATE_ITEM:
-                    return Jobs.UpdateItem(data.param)
-                case JobType.MOVE_ITEM:
-                    //return Jobs.MoveItem(data.param)
-                case JobType.CHECKOUT_ITEM:
-                    //return Jobs.CheckoutItem(data.param)
-                case JobType.DELETE_ITEM:
-                    return Jobs.DeleteItem(data.param)
-                case JobType.CREATE_FIELD:
-                    return Jobs.CreateField(data.param)
-                case JobType.UPDATE_FIELD:
-                    return Jobs.UpdateField(data.param)
-                case JobType.DELETE_FIELD:
-                    return Jobs.DeleteField(data.param)
-            }
+            return Jobs.Run(qjob).then((result) => {
+                console.log("Job completed successfully");
+                // TODO broadcast to all clients
+                return result;
+            }).catch((error) => {
+                console.error("Job failed with error: " + error);
+                throw error;
+            });
         });
     }
 

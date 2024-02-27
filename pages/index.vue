@@ -28,7 +28,6 @@
 
 <script setup lang="ts">
 import GenericModal from "../ui/genericModal.vue";
-import GenericList from "../ui/generic/genericList.vue";
 import { ModalType } from "../ui/modal";
 import NavFrame from "../ui/navFrame.vue";
 import AddInvModal from "../ui/modal/addInvModal.vue";
