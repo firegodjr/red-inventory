@@ -1,27 +1,24 @@
-import { Inventory, PrismaClient } from "@prisma/client";
-import { GetUserFromRequest } from "../authUtil";
+import { Inventory } from "@prisma/client";
+import { AuthUtil } from "../authUtil";
 import DbQueue from "../database/jobQueue";
 import { JobType, Jobs } from "../database/dbJobs";
-const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
 
     let { name } = await readBody(event);
-    let user = GetUserFromRequest(event);
+    let user = AuthUtil.GetUserFromRequest(event);
     let selectedCrewId = user?.selectedCrewId;
 
     if(selectedCrewId) {
-        let param: Jobs.CreateParams<Inventory> = {
-            newObj: {
-                crewId: selectedCrewId,
-                name: name,
-                id: ""
-            }
-        }
-
         await DbQueue.GetInstance().Add({
             jobType: JobType.CREATE_INVENTORY,
-            param: param
+            param: <Jobs.CreateParams<Inventory>>{
+                newObj: {
+                    crewId: selectedCrewId,
+                    name: name,
+                    id: ""
+                }
+            }
         });
     }
     else {
