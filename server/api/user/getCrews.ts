@@ -1,9 +1,9 @@
 import { PrismaClient } from "@prisma/client";
-import { GetUserFromRequest } from "~/server/authUtil";
+import { AuthUtil } from "~/server/authUtil";
 const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
-    let user = GetUserFromRequest(event);
+    let user = AuthUtil.GetUserFromRequest(event);
 
     let crew = prisma.crew.findMany({
         where: {

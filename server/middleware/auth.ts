@@ -1,5 +1,5 @@
 import { PrismaClient, User } from "@prisma/client";
-import { GetSessionExpiry, SESSION_COOKIE } from "~/server/authUtil";
+import { AuthUtil, SESSION_COOKIE } from "~/server/authUtil";
 const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
                 return;
             }
             else {
-                session.expiration = GetSessionExpiry(3*24*60);
+                session.expiration = AuthUtil.GetSessionExpiry(3*24*60);
                 prisma.session.update({
                     data: session,
                     where: {

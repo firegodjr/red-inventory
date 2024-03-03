@@ -1,6 +1,6 @@
 import { PrismaClient, User } from "@prisma/client";
 import { v4 as uuidv4 } from 'uuid';
-import { GetSessionExpiry, Hash, SESSION_COOKIE } from "../../authUtil";
+import { AuthUtil, SESSION_COOKIE } from "../../authUtil";
 const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
@@ -13,13 +13,13 @@ export default defineEventHandler(async (event) => {
         }
     });
 
-    if(user?.pwdhash == Hash(password)) {
+    if(user?.pwdhash == AuthUtil.Hash(password)) {
         const uniqueToken = uuidv4();
         await prisma.session.create({
             data: {
                 userId: user.id,
                 token: uniqueToken,
-                expiration: GetSessionExpiry(3*24*60)
+                expiration: AuthUtil.GetSessionExpiry(3*24*60)
             }
         })
 

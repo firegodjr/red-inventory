@@ -1,9 +1,9 @@
 import { PrismaClient, User } from "@prisma/client";
-import { GetUserFromRequest } from "~/server/authUtil";
+import { AuthUtil } from "~/server/authUtil";
 const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
-    var user = await GetUserFromRequest(event);
+    var user = await AuthUtil.GetUserFromRequest(event);
     if(user) {
         return toUserDTO(user);
     }

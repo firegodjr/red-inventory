@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { GetUserFromRequest } from "~/server/authUtil";
+import { AuthUtil } from "~/server/authUtil";
 const prisma = new PrismaClient();
 
 
@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
     // TODO can logged in user access this crew?
 
     // Make sure they actually have a selected crew
-    let user = GetUserFromRequest(event);
+    let user = AuthUtil.GetUserFromRequest(event);
     
     if(user?.selectedCrewId == null) {
         throw createError({ statusCode: 404, statusMessage: "No crew selected!"})

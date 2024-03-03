@@ -15,8 +15,7 @@ export default defineEventHandler(async (event) => {
             param: <Jobs.CreateParams<Inventory>>{
                 newObj: {
                     crewId: selectedCrewId,
-                    name: name,
-                    id: ""
+                    name: name
                 }
             }
         });
