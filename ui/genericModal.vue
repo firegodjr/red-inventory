@@ -22,8 +22,6 @@
 
 <script setup lang="ts">
 import { ModalType } from './modal';
-import AddInvModal from './modal/addInvModal.vue';
-
 
 const props = defineProps<{
     modal: object | null

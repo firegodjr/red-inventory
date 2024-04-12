@@ -13,6 +13,7 @@ export namespace AuthUtil {
     }
 
     export function Hash(s: string) {
+        // TODO use bcrypt
         return s;
     }
 

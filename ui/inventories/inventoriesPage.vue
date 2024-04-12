@@ -15,7 +15,7 @@
             :entry-name-key="'name'" 
             :entry-desc-keys="['itemCount', 'userCount']"
             :entry-desc-format="'Items: {0} - Users: {1}'" 
-            @addbtn-click="handleAddInventory"
+            @addbtn-click="() => ShowAddInventoryModal = true"
             @entry-click="handleInvSelected">
                 <i class="fa-solid fa-layer-group fa-sm"></i>
             </GenericList>
@@ -56,12 +56,17 @@
             </GenericList>
         </template>
     </HoloPanes>
+    <BlockUi v-if="ShowAddInventoryModal">
+        <AddInvModal @submit="handleAddInventory" @cancel="() => ShowAddInventoryModal = false" />
+    </BlockUi>
 </template>
 
 <script setup lang="ts">
 import { ModalType } from '../modal';
 import HoloPanes from '../generic/holoPanes.vue';
 import GenericList from '../generic/genericList.vue';
+import BlockUi from '../modal/blockUi.vue';
+import AddInvModal from '../modal/addInvModal.vue';
 import ItemIcon from './itemIcon.vue';
 import { ItemQuality, ItemType, ItemTypeToString, ItemQualityToString } from '~/items/itemsUtil';
 import ItemQualityStr from './itemQualityStr.vue';
@@ -71,6 +76,7 @@ let SelectedInventory: Ref<any | null> = ref(null);
 let SelectedItem: Ref<any | null> = ref(null);
 let CurrPane = ref('inventories');
 let Inventories: Ref<Inventory[]> = ref([]);
+let ShowAddInventoryModal = ref(false);
 
 const emit = defineEmits([
     'reqest-modal'
