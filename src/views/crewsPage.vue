@@ -1,29 +1,28 @@
 <template>
-    <HoloPanes 
-    :show-header="false"
-    :pane-names="['crews', 'crewinfo']"
-    :curr-pane="CurrPane">
+    <HoloPanes :show-header="false" :pane-names="['crews', 'crewinfo']" :curr-pane="CurrPane">
         <template v-slot:crews>
             <div class="relative">
                 <h1 class="red">CREWS</h1>
                 <p>Keep track of your choombas in crime.</p>
             </div>
             <br />
-            <GenericList 
-            :add-button-string="'Add a Crew'"
-            :entries="Crews" 
-            :entry-name-key="'name'" 
-            :entry-desc-keys="['itemCount']"
-            :entry-desc-format="'Users: {0}'" 
-            @addbtn-click="handleAddCrew"
-            @entry-click="handleCrewSelected">
+            <GenericList
+                :add-button-string="'Add a Crew'"
+                :entries="Crews"
+                :entry-name-key="'name'"
+                :entry-desc-keys="['itemCount']"
+                :entry-desc-format="'Users: {0}'"
+                @addbtn-click="handleAddCrew"
+                @entry-click="handleCrewSelected"
+            >
                 <i class="fa-solid fa-handshake fa-sm"></i>
             </GenericList>
         </template>
         <template v-slot:crewinfo>
-            <button class="back-btn" @click="() => CurrPane = 'crews'">Back to Crews</button><br />
+            <button class="back-btn" @click="() => (CurrPane = 'crews')">Back to Crews</button
+            ><br />
             <h1 class="white"><span class="red">></span> {{ SelectedCrew?.name }}</h1>
-            
+
             <br />
             <!-- <GenericList 
             :add-button-string="'Add Edgerunners'"
@@ -58,13 +57,10 @@ onMounted(async () => {
     Crews.value = crews.data.value as any;
 });
 
-function handleAddCrew(e: any) {
-
-}
+function handleAddCrew(e: any) {}
 
 function handleCrewSelected(e: any) {
     SelectedCrew.value = e;
     CurrPane.value = 'crewinfo';
 }
-
 </script>

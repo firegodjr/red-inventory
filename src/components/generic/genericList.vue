@@ -8,12 +8,18 @@
         </div>
         <div class="cyber-list noselect">
             <template v-for="entry in entries">
-                <div :tabindex="0" class="cyber-list-entry" :class="{clickable: !noclick}" @click="() => emit('entry-click', entry)">
-                    
+                <div
+                    :tabindex="0"
+                    class="cyber-list-entry"
+                    :class="{ clickable: !noclick }"
+                    @click="() => emit('entry-click', entry)"
+                >
                     <ItemIcon v-if="getItemType" class="red" :item-type="getItemType(entry)" />
                     <span class="blue">{{ getEntryName(entry) }}</span>
                     <span class="desc white">{{ getEntryDesc(entry) }}</span>
-                    <span v-if="!noclick" class="chevron"><i class="fa-solid fa-caret-right"></i></span>
+                    <span v-if="!noclick" class="chevron"
+                        ><i class="fa-solid fa-caret-right"></i
+                    ></span>
                 </div>
                 <div class="line-box">
                     <div class="line-thin red-box"></div>
@@ -25,22 +31,38 @@
                 </div>
             </template>
         </div>
-            <template v-if="addButtonString">
-                <div class="line-box">
-                    <div class="line-thin red-box"></div>
-                </div>
-                <div class="cyber-list-entry add-new clickable" @click="emit('addbtn-click')">
-                    <span class="red"><i class="fa-solid fa-circle-plus"></i> {{ addButtonString }}</span>
-                </div>
-                <div class="line-box">
-                    <div class="line-thin red-box"></div>
-                </div>
-            </template>
+        <template v-if="addButtonString">
+            <div class="line-box">
+                <div class="line-thin red-box"></div>
+            </div>
+            <div class="cyber-list-entry add-new clickable" @click="emit('addbtn-click')">
+                <span class="red"
+                    ><i class="fa-solid fa-circle-plus"></i> {{ addButtonString }}</span
+                >
+            </div>
+            <div class="line-box">
+                <div class="line-thin red-box"></div>
+            </div>
+        </template>
         <i class="fa-solid fa-vector-square"></i>
     </div>
-    <p class="noselect" style="font-size: x-small; opacity: 50%;">
+    <p class="noselect" style="font-size: x-small; opacity: 50%">
         <br />
-        [ { "id": 1, "name": "Bathsheba", "items": [ { "id": 1, "name": "Militech XR-83", "type": "Heavy Ranged Weapon", "count": 1, "inventoryId": 1, "fields": [ { "id": 1, "name": "Damage", "value": "3d6", "itemId": 1 }, { "id": 2, "name": "Magazine Size", "value": "8", "itemId": 1 } ] }, { "id": 2, "name": "Arasaka Smart Shotgun", "type": "Heavy Ranged Weapon", "count": 1, "inventoryId": 1, "fields": [ { "id": 3, "name": "Damage", "value": "3d6", "itemId": 2 }, { "id": 4, "name": "Magazine Size", "value": "4", "itemId": 2 } ] } ], "users": [ { "id": 1, "email": "coyote@kickflip.gov" } ], "_count": { "users": 1, "items": 2 } }, { "id": 2, "name": "Dumpster on 12th & Main", "items": [ { "id": 3, "name": "Militech XR-83", "type": "Heavy Ranged Weapon", "count": 1, "inventoryId": 2, "fields": [ { "id": 5, "name": "Damage", "value": "3d6", "itemId": 3 }, { "id": 6, "name": "Magazine Size", "value": "8", "itemId": 3 } ] }, { "id": 4, "name": "Arasaka Smart Shotgun", "type": "Heavy Ranged Weapon", "count": 1, "inventoryId": 2, "fields": [ { "id": 7, "name": "Damage", "value": "3d6", "itemId": 4 }, { "id": 8, "name": "Magazine Size", "value": "4", "itemId": 4 } ] } ], "users": [ { "id": 1, "email": "coyote@kickflip.gov" } ], "_count": { "users": 1, "items": 2 } } ]
+        [ { "id": 1, "name": "Bathsheba", "items": [ { "id": 1, "name": "Militech XR-83", "type":
+        "Heavy Ranged Weapon", "count": 1, "inventoryId": 1, "fields": [ { "id": 1, "name":
+        "Damage", "value": "3d6", "itemId": 1 }, { "id": 2, "name": "Magazine Size", "value": "8",
+        "itemId": 1 } ] }, { "id": 2, "name": "Arasaka Smart Shotgun", "type": "Heavy Ranged
+        Weapon", "count": 1, "inventoryId": 1, "fields": [ { "id": 3, "name": "Damage", "value":
+        "3d6", "itemId": 2 }, { "id": 4, "name": "Magazine Size", "value": "4", "itemId": 2 } ] } ],
+        "users": [ { "id": 1, "email": "coyote@kickflip.gov" } ], "_count": { "users": 1, "items": 2
+        } }, { "id": 2, "name": "Dumpster on 12th & Main", "items": [ { "id": 3, "name": "Militech
+        XR-83", "type": "Heavy Ranged Weapon", "count": 1, "inventoryId": 2, "fields": [ { "id": 5,
+        "name": "Damage", "value": "3d6", "itemId": 3 }, { "id": 6, "name": "Magazine Size",
+        "value": "8", "itemId": 3 } ] }, { "id": 4, "name": "Arasaka Smart Shotgun", "type": "Heavy
+        Ranged Weapon", "count": 1, "inventoryId": 2, "fields": [ { "id": 7, "name": "Damage",
+        "value": "3d6", "itemId": 4 }, { "id": 8, "name": "Magazine Size", "value": "4", "itemId": 4
+        } ] } ], "users": [ { "id": 1, "email": "coyote@kickflip.gov" } ], "_count": { "users": 1,
+        "items": 2 } } ]
     </p>
 </template>
 
@@ -49,21 +71,18 @@ import ItemIcon from '../inventories/itemIcon.vue';
 import { ItemType } from '~/items/itemsUtil';
 
 const props = defineProps<{
-    noclick?: boolean,
-    entries?: any[] | null,
-    entryNameKey: string,
-    entryDescKeys: ((e: any) => string[]) | string[],
-    entryDescFormat: string,
-    addButtonString?: string,
-    allowSelection?: boolean,
-    selectedEntry?: any,
-    getItemType?: ((e: any) => ItemType)
+    noclick?: boolean;
+    entries?: any[] | null;
+    entryNameKey: string;
+    entryDescKeys: ((e: any) => string[]) | string[];
+    entryDescFormat: string;
+    addButtonString?: string;
+    allowSelection?: boolean;
+    selectedEntry?: any;
+    getItemType?: (e: any) => ItemType;
 }>();
 
-const emit = defineEmits([
-    "entry-click",
-    "addbtn-click"
-])
+const emit = defineEmits(['entry-click', 'addbtn-click']);
 
 function getEntryName(entry: any): string {
     return entry[props.entryNameKey];
@@ -72,15 +91,14 @@ function getEntryName(entry: any): string {
 function getEntryDesc(entry: any): string {
     let desc = props.entryDescFormat;
     let descKeys: string[] = [];
-    if((props.entryDescKeys as any).at) {
+    if ((props.entryDescKeys as any).at) {
         descKeys = props.entryDescKeys as string[];
-        for(let i = 0; i < descKeys.length; ++i) {
+        for (let i = 0; i < descKeys.length; ++i) {
             desc = desc.replaceAll(`{${i}}`, entry[descKeys[i]]);
         }
-    }
-    else {
+    } else {
         descKeys = (props.entryDescKeys as (e: any) => string[])(entry);
-        for(let i = 0; i < descKeys.length; ++i) {
+        for (let i = 0; i < descKeys.length; ++i) {
             desc = desc.replaceAll(`{${i}}`, descKeys[i]);
         }
     }
@@ -116,19 +134,19 @@ function getEntryDesc(entry: any): string {
 
 .line-box {
     position: relative;
-    margin-left: 1.40em;
+    margin-left: 1.4em;
 }
 
 .line-box > .list-icon {
     position: absolute;
-    left: -1.50em;
+    left: -1.5em;
     top: 0;
 }
 
 .cyber-list-entry {
     position: relative;
     padding: 0.75em;
-    margin-left: 1.40em;
+    margin-left: 1.4em;
     background-color: var(--clr-bg-red);
 }
 
@@ -168,7 +186,7 @@ function getEntryDesc(entry: any): string {
     }
 
     .cyber-list-entry .desc::before {
-        content: "\a";
+        content: '\a';
         white-space: pre;
     }
 }

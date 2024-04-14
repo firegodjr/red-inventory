@@ -6,7 +6,7 @@
 import { ItemQuality, ItemQualityToString } from '../../util/itemsUtil';
 
 const props = defineProps<{
-    quality: ItemQuality
+    quality: ItemQuality;
 }>();
 
 function qualityClassObj() {
@@ -14,7 +14,6 @@ function qualityClassObj() {
         yellow: props.quality == ItemQuality.EXCELLENT,
         white: props.quality == ItemQuality.STANDARD,
         red: props.quality == ItemQuality.POOR
-    }
-    
+    };
 }
 </script>

@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export function canUserAccessCrew(userGuid: string, crewGuid: string): boolean {
@@ -11,5 +11,5 @@ export function canUserAccessCrew(userGuid: string, crewGuid: string): boolean {
                 }
             }
         }
-    })
+    });
 }

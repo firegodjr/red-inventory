@@ -8,7 +8,7 @@
         <div class="modal-content">
             <h1>Add a New Inventory</h1>
             <label>Name</label>
-            <input type="text" ref="nameField" placeholder="ex. My Inventory"/>
+            <input type="text" ref="nameField" placeholder="ex. My Inventory" />
             <br />
             <label>Users</label>
             <textarea ref="usersField"></textarea>
@@ -21,13 +21,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, type Ref } from "vue";
-import { ModalType } from "../../modal";
+import { ref, type Ref } from 'vue';
+import { ModalType } from '../../modal';
 
-var emit = defineEmits([
-    "submit",
-    "cancel"
-]);
+var emit = defineEmits(['submit', 'cancel']);
 
 const nameField: Ref<HTMLInputElement | undefined> = ref();
 const usersField: Ref<HTMLTextAreaElement | undefined> = ref();
@@ -37,6 +34,6 @@ function makeResultsObj() {
         modalType: ModalType.NEW_INV,
         name: nameField.value?.value,
         users: usersField.value?.value
-    }
+    };
 }
 </script>

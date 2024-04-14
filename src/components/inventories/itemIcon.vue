@@ -16,7 +16,7 @@ const cyberware = [
     ItemType.CW_INTERNAL,
     ItemType.CW_EXTERNAL,
     ItemType.CW_FASHION
-]
+];
 
 const guns = [
     ItemType.WP_ASSAULT_RIFLE,
@@ -27,10 +27,10 @@ const guns = [
     ItemType.WP_ROCKET_LAUNCHER,
     ItemType.WP_SHOTGUN,
     ItemType.WP_SNIPER
-]
+];
 
 const props = defineProps<{
-    itemType: ItemType
+    itemType: ItemType;
 }>();
 </script>
 

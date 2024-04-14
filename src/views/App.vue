@@ -15,7 +15,6 @@
         <template v-slot:acct>
             <AccountPage />
         </template> -->
-
     </NavFrame>
 
     <div class="login-debug yellow">
@@ -25,22 +24,22 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, type Ref } from "vue";
-import { ModalType } from "../components/modal";
-import NavFrame from "../components/navFrame.vue";
-import AddInvModal from "../components/modal/addInvModal.vue";
-import { HandleLogout } from "../util/clientLoginUtil";
+import { onMounted, ref, type Ref } from 'vue';
+import { ModalType } from '../components/modal';
+import NavFrame from '../components/navFrame.vue';
+import AddInvModal from '../components/modal/addInvModal.vue';
+import { HandleLogout } from '../util/clientLoginUtil';
 
 let ModalDisplay = ref(false);
 let CurrModalType = ref(ModalType.CONFIRM);
 let CurrModal: Ref<object | null> = ref(null);
-let UserString: Ref<string> = ref("");
+let UserString: Ref<string> = ref('');
 
 let LoadingInventories: Ref<boolean> = ref(false);
 
 onMounted(async () => {
     let userString = await getUserString();
-    if(userString) {
+    if (userString) {
         UserString.value = userString;
     }
 });
@@ -52,7 +51,7 @@ function showModal(e: ModalType) {
 }
 
 function createModal(e: ModalType) {
-    switch(e) {
+    switch (e) {
         case ModalType.NEW_INV:
             return AddInvModal;
         default:
@@ -75,7 +74,7 @@ async function getUserString() {
     // }
 
     // return user.data.value?.username
-    return "user login not set up :(";
+    return 'user login not set up :(';
 }
 </script>
 
@@ -85,7 +84,5 @@ async function getUserString() {
     bottom: 0;
     padding: 0.5em;
 }
-
-
 </style>
 ./util/clientLoginUtil../components/modal./accountPage.vue./inventoriesPage.vue

@@ -2,16 +2,48 @@
     <div class="wrapper red">
         <div class="nav noselect">
             <div class="buttons">
-                <div id="invs" @click="() => { SetState(NavState.Inventories); $router.push('/inventories')}">
+                <div
+                    id="invs"
+                    @click="
+                        () => {
+                            SetState(NavState.Inventories);
+                            $router.push('/inventories');
+                        }
+                    "
+                >
                     <i class="fa-solid fa-layer-group fa-sm"></i><span> Inventories</span>
                 </div>
-                <div id="arch" @click="() => { SetState(NavState.Architectures); $router.push('/architectures')}">
+                <div
+                    id="arch"
+                    @click="
+                        () => {
+                            SetState(NavState.Architectures);
+                            $router.push('/architectures');
+                        }
+                    "
+                >
                     <i class="fa-solid fa-code fa-sm"></i><span> Architectures</span>
                 </div>
-                <div id="crew" @click="() => { SetState(NavState.Crews); $router.push('/crews') }">
+                <div
+                    id="crew"
+                    @click="
+                        () => {
+                            SetState(NavState.Crews);
+                            $router.push('/crews');
+                        }
+                    "
+                >
                     <i class="fa-solid fa-handshake fa-sm"></i><span> Crews</span>
                 </div>
-                <div id="acct" @click="() => { SetState(NavState.Account); $router.push('/account') }">
+                <div
+                    id="acct"
+                    @click="
+                        () => {
+                            SetState(NavState.Account);
+                            $router.push('/account');
+                        }
+                    "
+                >
                     <i class="fa-solid fa-user-large fa-sm"></i><span> Account</span>
                 </div>
             </div>
@@ -33,35 +65,35 @@
 import { onMounted, ref, type Ref } from 'vue';
 
 enum NavState {
-    Inventories = "invs",
-    Architectures = "arch",
-    Account = "acct",
-    Crews = "crew"
+    Inventories = 'invs',
+    Architectures = 'arch',
+    Account = 'acct',
+    Crews = 'crew'
 }
 
 let Selected: Ref<NavState> = ref(NavState.Inventories);
 
 function SetState(state: NavState): void {
-    console.log("Setting State");
-    
+    console.log('Setting State');
+
     let oldEl = document.getElementById(Selected.value);
-    oldEl?.classList.remove("selected");
-    oldEl?.classList.remove("blue");
+    oldEl?.classList.remove('selected');
+    oldEl?.classList.remove('blue');
     Selected.value = state;
     let el = document.getElementById(state);
-    el?.classList.add("selected");
-    el?.classList.add("blue");
+    el?.classList.add('selected');
+    el?.classList.add('blue');
 }
 
 onMounted(() => {
     SetState(NavState.Inventories);
-})
+});
 </script>
 
 <style>
 .wrapper {
     padding: 0 1em;
-    container-name: "wrapper";
+    container-name: 'wrapper';
 }
 
 .buttons {
@@ -75,7 +107,7 @@ onMounted(() => {
 
 .buttons > div {
     text-align: center;
-    
+
     padding: 0.5em;
     font-size: 1.4em;
 
