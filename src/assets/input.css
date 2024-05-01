@@ -1,0 +1,246 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: Radjhani;
+  src: url('font/Rajdhani-Medium.ttf');
+}
+
+@font-face {
+  font-family: Radjhani;
+  src: url('font/Rajdhani-SemiBold.ttf');
+  font-weight: bold;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+:root {
+  --bg-gradient: linear-gradient(0deg, rgb(0, 14, 12) 0%, #27080f 100%);
+  --clr-text-blue: #4cf6ff;
+  --clr-text-green: #1cff9b;
+  --clr-bg-green: #1cff9b10;
+  --clr-bg-green-active: #1cff9b50;
+  --clr-text-red: #ed3d37;
+  --clr-bg-red: #ed3d3710;
+  --clr-bg-red-active: #ed3d3750;
+  --clr-text-yellow: #ffbb00;
+  --clr-bg-yellow: #ffbb0020;
+  --clr-bg-yellow-active: #ffbb0050;
+  --clr-bg-hover: rgba(255, 255, 255, 0.2);
+  --clr-bg-active: rgba(255, 255, 255, 0.5);
+
+  font-family: Radjhani;
+}
+
+body {
+  height: 100vh;
+  background: rgb(0, 22, 20);
+  background: linear-gradient(0deg, rgb(0, 14, 12) 0%, #27080f 100%);
+  overflow-x: hidden;
+}
+
+.add-new:hover {
+  background-color: var(--clr-bg-green);
+}
+
+.add-new:active {
+  background-color: var(--clr-bg-green-active);
+}
+
+.red {
+  color: var(--clr-text-red);
+}
+
+.green {
+  color: var(--clr-text-green);
+}
+
+.blue {
+  color: var(--clr-text-blue);
+}
+
+.yellow {
+  color: var(--clr-text-yellow);
+}
+
+.white {
+  color: white;
+}
+
+.line {
+  height: 3px;
+}
+
+.line-thin {
+  height: 1px;
+}
+
+.red-box {
+  background-color: var(--clr-text-red);
+  box-shadow: 0 0 7px var(--clr-text-red);
+  color: black;
+}
+
+.green-box {
+  background-color: var(--clr-text-green);
+  box-shadow: 0 0 7px var(--clr-text-green);
+  color: black;
+}
+
+.blue-box {
+  background-color: var(--clr-text-blue);
+  box-shadow: 0 0 7px var(--clr-text-blue);
+  color: black;
+}
+
+.yellow-box {
+  background-color: var(--clr-text-yellow);
+  box-shadow: 0 0 7px var(--clr-text-yellow);
+  color: black;
+}
+
+h1 {
+  font-size: xx-large;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: x-large;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: large;
+  font-weight: bold;
+}
+
+label {
+  color: white;
+}
+
+label::after {
+  content: '\a';
+  white-space: pre;
+}
+
+button {
+  font-weight: bold;
+  position: relative;
+  border-top: 2px solid var(--clr-text-red);
+  padding: 0.25em;
+  padding-right: 1.5em;
+  margin: 0.25em;
+  background-color: var(--clr-bg-red);
+  color: var(--clr-text-red);
+}
+
+button.back-btn {
+  border-top: 2px solid var(--clr-text-yellow);
+  color: var(--clr-text-yellow);
+  padding-right: 0.25em;
+  padding-left: 1.5em;
+}
+
+button.back-btn::after {
+  transform: rotateZ(180deg);
+  background-color: var(--clr-text-yellow);
+
+  left: 0.5em;
+
+  transition: left 0.1s linear;
+}
+
+button.back-btn:hover::after {
+  left: 0.25em;
+}
+
+button.green {
+  border-top: 2px solid var(--clr-text-green);
+}
+
+button.green::after {
+  background-color: var(--clr-text-green);
+}
+
+button.white {
+  border-top: 2px solid white;
+}
+
+button.white::after {
+  background-color: white;
+}
+
+button.white:hover {
+  color: var(--clr-text-green);
+  border-top: 2px solid var(--clr-text-green);
+}
+
+button.white:hover::after {
+  background-color: var(--clr-text-green);
+}
+
+button:hover {
+  color: white;
+  background-color: var(--clr-bg-red);
+  border-top: 2px solid white;
+}
+
+button:hover::after {
+  background-color: white;
+  right: 0.25em;
+}
+
+button:active {
+  background-color: var(--clr-bg-red-active);
+}
+
+button::after {
+  content: '';
+  display: block;
+  position: absolute;
+  -webkit-mask: url('../../images/caret-right-solid.svg') no-repeat 50% 50%;
+  mask: url('../../images/caret-right-solid.svg') no-repeat 50% 50%;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+  right: 0.5em;
+  top: 0.6em;
+  background-color: var(--clr-text-red);
+  width: 0.5em;
+  height: 0.75em;
+
+  transition: right 0.1s linear;
+}
+
+input[type='text'],
+input[type='password'],
+input[type='email'] {
+  background-color: var(--clr-bg-red);
+  margin: 0.25em;
+  padding: 0.25em;
+  color: white;
+  border-left: 1px dashed var(--clr-text-red);
+}
+
+textarea {
+  background-color: var(--clr-bg-red);
+  margin: 0.25em;
+  padding: 0.25em;
+  color: white;
+  border-left: 1px dashed var(--clr-text-red);
+  border-bottom: 1px solid var(--clr-text-red);
+}
