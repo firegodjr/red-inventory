@@ -76,7 +76,8 @@ import ItemIcon from '../components/inventories/itemIcon.vue';
 import { ItemQuality, ItemType, ItemTypeToString, ItemQualityToString } from '../util/itemsUtil';
 import ItemQualityStr from '../components/inventories/itemQualityStr.vue';
 import { type Inventory } from '@prisma/client';
-import { ref, type Ref, onMounted } from 'vue';
+import { type Ref, onMounted, ref } from 'vue';
+import { useFetch } from '@vueuse/core';
 
 let SelectedInventory: Ref<any | null> = ref(null);
 let SelectedItem: Ref<any | null> = ref(null);

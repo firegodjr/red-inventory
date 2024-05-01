@@ -1,5 +1,5 @@
 <template>
-    <!-- <div class="login-box red">
+    <div class="login-box red">
         <h1>Login</h1>
         <h3 class="yellow">{{ Error }}</h3>
         <label>Username</label>
@@ -9,26 +9,22 @@
         <input type="password" v-model="Password" />
         <br />
         <button @click="submit">Login</button>
-    </div> -->
+    </div>
 </template>
 
 <script setup lang="ts">
-// import { HandleLogin } from '~/util/loginUtil';
+import { HandleLogin } from '../util/clientLoginUtil';
+import { ref } from 'vue';
 
-// let Username = ref("");
-// let Password = ref("");
-// let Error = ref("");
+let Username = ref('');
+let Password = ref('');
+let Error = ref('');
 
-// async function submit() {
-//     let result = await HandleLogin(Username.value, Password.value);
-//     if(result.success) {
-//         navigateTo("/");
-//     }
-//     else {
-//         if(result.error)
-//             Error.value = result.error;
-//     }
-// }
+async function submit() {
+    HandleLogin(Username.value, Password.value).then((result) => {
+        if (result && result.ok) window.location.href = window.location.pathname;
+    });
+}
 </script>
 
 <style>

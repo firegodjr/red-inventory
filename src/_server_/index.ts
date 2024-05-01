@@ -4,13 +4,18 @@ import authController from './controllers/auth';
 import fs from 'fs/promises';
 import path from 'path';
 import assetsRouter from './assetsRouter';
+import cookieParser from 'cookie-parser';
+import { PrismaClient } from '@prisma/client';
 
 const port = process.env.PORT || 3000;
 
 const app = express();
+const prisma = new PrismaClient();
 
-userController(app);
-authController(app);
+app.use(cookieParser());
+app.use(express.json());
+userController(app, prisma);
+authController(app, prisma);
 
 app.get('/api/v1/hello', (_req, res) => {
     res.json({ message: 'Hello, world!' });

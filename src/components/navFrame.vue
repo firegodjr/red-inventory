@@ -153,9 +153,14 @@ onMounted(() => {
     }
 }
 
-@container nav-top (max-width: 400px) {
+@container nav-top (max-width: 695px) {
     .buttons span {
         display: none;
+        font-size: 1rem;
+    }
+
+    .buttons {
+        font-size: 1.25rem;
     }
 }
 </style>

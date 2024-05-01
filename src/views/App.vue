@@ -1,21 +1,5 @@
 <template>
-    <NavFrame>
-        <!-- <template v-slot:invs>
-            <InventoriesPage v-if="!LoadingInventories" @reqest-modal="showModal" />
-        </template>
-
-        <template v-slot:arch>
-            <ArchitecturesPage :architectures="[]" @reqest-modal="showModal"/>
-        </template>
-
-        <template v-slot:crew>
-            <CrewsPage />
-        </template>
-
-        <template v-slot:acct>
-            <AccountPage />
-        </template> -->
-    </NavFrame>
+    <NavFrame v-if="UserString" />
 
     <div class="login-debug yellow">
         Logged in as: {{ UserString }}
@@ -24,18 +8,12 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, type Ref } from 'vue';
-import { ModalType } from '../components/modal';
+import { onMounted, type Ref, ref } from 'vue';
 import NavFrame from '../components/navFrame.vue';
-import AddInvModal from '../components/modal/addInvModal.vue';
 import { HandleLogout } from '../util/clientLoginUtil';
+import '../assets/output.css';
 
-let ModalDisplay = ref(false);
-let CurrModalType = ref(ModalType.CONFIRM);
-let CurrModal: Ref<object | null> = ref(null);
 let UserString: Ref<string> = ref('');
-
-let LoadingInventories: Ref<boolean> = ref(false);
 
 onMounted(async () => {
     let userString = await getUserString();
@@ -43,21 +21,6 @@ onMounted(async () => {
         UserString.value = userString;
     }
 });
-
-function showModal(e: ModalType) {
-    ModalDisplay.value = true;
-    CurrModalType.value = e;
-    CurrModal.value = createModal(e);
-}
-
-function createModal(e: ModalType) {
-    switch (e) {
-        case ModalType.NEW_INV:
-            return AddInvModal;
-        default:
-            return null;
-    }
-}
 
 async function handleLogoutClick() {
     await HandleLogout();
@@ -85,4 +48,3 @@ async function getUserString() {
     padding: 0.5em;
 }
 </style>
-./util/clientLoginUtil../components/modal./accountPage.vue./inventoriesPage.vue

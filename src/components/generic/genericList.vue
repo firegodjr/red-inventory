@@ -46,8 +46,7 @@
         </template>
         <i class="fa-solid fa-vector-square"></i>
     </div>
-    <p class="noselect" style="font-size: x-small; opacity: 50%">
-        <br />
+    <p class="cool-code noselect" style="font-size: x-small; opacity: 50%">
         [ { "id": 1, "name": "Bathsheba", "items": [ { "id": 1, "name": "Militech XR-83", "type":
         "Heavy Ranged Weapon", "count": 1, "inventoryId": 1, "fields": [ { "id": 1, "name":
         "Damage", "value": "3d6", "itemId": 1 }, { "id": 2, "name": "Magazine Size", "value": "8",
@@ -68,7 +67,7 @@
 
 <script setup lang="ts">
 import ItemIcon from '../inventories/itemIcon.vue';
-import { ItemType } from '~/items/itemsUtil';
+import { type ItemType } from '@/util/itemsUtil';
 
 const props = defineProps<{
     noclick?: boolean;
@@ -178,6 +177,10 @@ function getEntryDesc(entry: any): string {
     text-align: center;
 }
 
+.cool-code {
+    overflow: hidden;
+    height: 3.5em;
+}
 @container generic-list (max-width: 400px) {
     .cyber-list-entry * {
         font-size: 1rem;

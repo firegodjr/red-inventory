@@ -5,7 +5,7 @@
         <div
             v-for="pane in paneNames"
             class="pane"
-            :class="{ hidden: currPane != pane }"
+            :class="{ hidden: /*currPane != pane*/ false }"
             :style="getPaneStyle(pane, currPaneIndex)"
         >
             <h2 v-if="showHeader">{{ pane }}</h2>
@@ -75,7 +75,7 @@ function getPaneStyle(name: string, currPaneIndex: number): StyleValue {
 }
 </script>
 
-<style>
+<style scoped>
 .holo-pane-wrapper {
     display: grid;
     position: relative;
