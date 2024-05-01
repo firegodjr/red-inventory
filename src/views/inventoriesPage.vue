@@ -77,7 +77,6 @@ import { ItemQuality, ItemType, ItemTypeToString, ItemQualityToString } from '..
 import ItemQualityStr from '../components/inventories/itemQualityStr.vue';
 import { type Inventory } from '@prisma/client';
 import { type Ref, onMounted, ref } from 'vue';
-import { useFetch } from '@vueuse/core';
 
 let SelectedInventory: Ref<any | null> = ref(null);
 let SelectedItem: Ref<any | null> = ref(null);
@@ -87,10 +86,14 @@ let Inventories: Ref<Inventory[]> = ref([]);
 const emit = defineEmits(['reqest-modal']);
 
 onMounted(async () => {
-    let inventories = await useFetch('/api/user/getInventoriesForSelectedCrew', {
+    await fetch('/api/user/getInventoriesForSelectedCrew', {
         credentials: 'include'
-    });
-    Inventories.value = inventories.data.value as any;
+    })
+        .then((response) => response.json())
+        .then((json) => {
+            console.log(json);
+            Inventories.value = json;
+        });
 });
 
 async function handleInvSelected(e: any) {

@@ -8,7 +8,6 @@ export const SESSION_COOKIE = 'DEADDROP_COYOTE_WUZ_HERE';
 
 export default function register(app: Application, prisma: PrismaClient) {
     app.post(PREFIX + '/login', async (req, res) => {
-        if (req.cookies[SESSION_COOKIE]) return;
         let body = req.body as LoginDto;
         console.log('Body:', body);
 

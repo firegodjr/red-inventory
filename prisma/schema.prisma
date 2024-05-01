@@ -33,6 +33,7 @@ model User {
   crews          Crew[]
   selectedCrewId String?
   sessions       Session[] @relation
+  heldItems      Item[] @relation
 }
 
 model Inventory {
@@ -52,6 +53,8 @@ model Item {
   fields      Field[]
   inventory   Inventory @relation(fields: [inventoryId], references: [id])
   inventoryId String
+  heldBy      User? @relation(fields: [heldById], references: [id])
+  heldById    String?
 }
 
 model Field {

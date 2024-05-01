@@ -6,14 +6,18 @@ import path from 'path';
 import assetsRouter from './assetsRouter';
 import cookieParser from 'cookie-parser';
 import { PrismaClient } from '@prisma/client';
+import authMiddleware from './middleware/authMiddleware';
 
 const port = process.env.PORT || 3000;
 
 const app = express();
-const prisma = new PrismaClient();
+let prisma = new PrismaClient();
 
 app.use(cookieParser());
 app.use(express.json());
+// Adds logged-in user and other things to res.locals
+authMiddleware(app, prisma);
+// Register api controller endpoints
 userController(app, prisma);
 authController(app, prisma);
 
