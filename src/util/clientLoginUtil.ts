@@ -36,6 +36,7 @@ export async function HandleLogin(username: string, password: string) {
 
 export async function HandleLogout() {
     await useFetch('api/auth/logout', {
+        method: 'post',
         credentials: 'include'
     });
 }

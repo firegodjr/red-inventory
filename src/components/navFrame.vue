@@ -1,57 +1,56 @@
 <template>
     <div class="wrapper red">
-        <div class="nav noselect">
-            <div class="buttons">
-                <div
-                    id="invs"
-                    @click="
-                        () => {
-                            SetState(NavState.Inventories);
-                            $router.push('/inventories');
-                        }
-                    "
-                >
-                    <i class="fa-solid fa-layer-group fa-sm"></i><span> Inventories</span>
-                </div>
-                <div
-                    id="arch"
-                    @click="
-                        () => {
-                            SetState(NavState.Architectures);
-                            $router.push('/architectures');
-                        }
-                    "
-                >
-                    <i class="fa-solid fa-code fa-sm"></i><span> Architectures</span>
-                </div>
-                <div
-                    id="crew"
-                    @click="
-                        () => {
-                            SetState(NavState.Crews);
-                            $router.push('/crews');
-                        }
-                    "
-                >
-                    <i class="fa-solid fa-handshake fa-sm"></i><span> Crews</span>
-                </div>
-                <div
-                    id="acct"
-                    @click="
-                        () => {
-                            SetState(NavState.Account);
-                            $router.push('/account');
-                        }
-                    "
-                >
-                    <i class="fa-solid fa-user-large fa-sm"></i><span> Account</span>
+        <template v-if="accountStore.account">
+            <div class="nav noselect">
+                <div class="buttons">
+                    <div
+                        id="invs"
+                        @click="
+                            () => {
+                                SetState(NavState.Inventories);
+                                $router.push('/inventories');
+                            }
+                        "
+                    >
+                        <i class="fa-solid fa-layer-group fa-sm"></i><span> Inventories</span>
+                    </div>
+                    <div
+                        id="arch"
+                        @click="
+                            () => {
+                                SetState(NavState.Architectures);
+                                $router.push('/architectures');
+                            }
+                        "
+                    >
+                        <i class="fa-solid fa-code fa-sm"></i><span> Architectures</span>
+                    </div>
+                    <div
+                        id="crew"
+                        @click="
+                            () => {
+                                SetState(NavState.Crews);
+                                $router.push('/crews');
+                            }
+                        "
+                    >
+                        <i class="fa-solid fa-handshake fa-sm"></i><span> Crews</span>
+                    </div>
+                    <div
+                        id="acct"
+                        @click="
+                            () => {
+                                SetState(NavState.Account);
+                                $router.push('/account');
+                            }
+                        "
+                    >
+                        <i class="fa-solid fa-user-large fa-sm"></i><span> Account</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="line red-box"></div>
-        <div class="content-frame red">
-            <RouterView />
-        </div>
+            <div class="line red-box"></div>
+        </template>
         <!-- <div class="content-frame red">
             <slot name="invs" v-if="Selected == NavState.Inventories"></slot>
             <slot name="arch" v-if="Selected == NavState.Architectures"></slot>
@@ -63,6 +62,9 @@
 
 <script setup lang="ts">
 import { onMounted, ref, type Ref } from 'vue';
+import { useAccountStore } from '@/stores/account';
+
+const accountStore = useAccountStore();
 
 enum NavState {
     Inventories = 'invs',
@@ -124,13 +126,6 @@ onMounted(() => {
 
 .buttons > div.selected:hover {
     background-color: transparent;
-}
-
-.content-frame {
-    padding: 1em;
-    padding-top: 2em;
-    max-width: 70rem;
-    margin: auto;
 }
 
 .nav {

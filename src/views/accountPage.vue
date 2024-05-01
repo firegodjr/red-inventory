@@ -2,14 +2,14 @@
     <h1>Account</h1>
     <p>Your detes.</p>
     <br />
-    <div class="white" v-if="UserInfo">
+    <div class="white" v-if="accountStore.account">
         <h2>
             <span class="red">User <i class="fa-solid fa-caret-right"></i></span>
-            {{ UserInfo.username }}
+            {{ accountStore.account?.username }}
         </h2>
         <h2>
             <span class="red">Email <i class="fa-solid fa-caret-right"></i></span>
-            {{ UserInfo.email }}
+            {{ accountStore.account?.email }}
         </h2>
         <label>Current Crew</label>
         <select @change="handleCrewSelected">
@@ -26,21 +26,12 @@
 <script setup lang="ts">
 import type { Crew, User } from '.prisma/client';
 import { onMounted, ref, type Ref } from 'vue';
+import { useAccountStore } from '@/stores/account';
 
 let CrewsForUser: Ref<Crew[]> = ref([]);
-let UserInfo: Ref<User | undefined> = ref(undefined);
+const accountStore = useAccountStore();
 
 onMounted(async () => {
-    let crews = await useFetch('/api/user/getCrews', {
-        credentials: 'include'
-    });
-    let userInfo = await useFetch('/api/user/getUser', {
-        credentials: 'include'
-    });
-
-    CrewsForUser.value = crews.data.value as any;
-    UserInfo.value = userInfo.data.value as any;
-
     // TODO select currently selected crew here
 });
 

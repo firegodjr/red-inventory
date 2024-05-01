@@ -1,6 +1,5 @@
 import type { LoginDto } from '@/dto';
 import type { PrismaClient } from '@prisma/client';
-import { randomUUID } from 'crypto';
 import { type Application } from 'express';
 
 const PREFIX = '/api/auth';
@@ -21,7 +20,6 @@ export default function register(app: Application, prisma: PrismaClient) {
             })
             .then((user) => {
                 if (!user) throw 'Got null or undefined user?';
-                const seshId = randomUUID();
                 return prisma.session.create({
                     data: {
                         userId: user.id,
@@ -39,12 +37,14 @@ export default function register(app: Application, prisma: PrismaClient) {
             });
     });
 
-    app.post(PREFIX + 'logout', async (req, res) => {
+    app.post(PREFIX + '/logout', async (req, res) => {
         const user = res.locals.user;
         const seshId = res.locals.seshId;
 
         prisma.session.delete({ where: { id: seshId } }).catch((error) => {
             console.log('Logout error:', error);
         });
+
+        res.sendStatus(200);
     });
 }

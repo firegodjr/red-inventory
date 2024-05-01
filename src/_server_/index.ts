@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser';
 import { PrismaClient } from '@prisma/client';
 import authMiddleware from './middleware/authMiddleware';
 
-const port = process.env.PORT || 3000;
+const port = parseInt(process.env.PORT || '3000');
 
 const app = express();
 let prisma = new PrismaClient();
@@ -25,6 +25,11 @@ app.get('/api/v1/hello', (_req, res) => {
     res.json({ message: 'Hello, world!' });
 });
 
+const publicPath = path.join(path.resolve(), 'public');
+const assetsPath = path.join(path.resolve(), 'dist/assets');
+app.use('/', express.static(publicPath));
+app.use('/assets/', express.static(assetsPath));
+
 const environment = process.env.NODE_ENV;
 const simpleRouter = express.Router();
 simpleRouter.get('/*', async (_req, res) => {
@@ -36,12 +41,10 @@ simpleRouter.get('/*', async (_req, res) => {
     res.render('index.html.ejs', routerData);
 });
 
-const publicPath = path.join(path.resolve(), 'public');
-app.use('/', express.static(publicPath));
 app.use(simpleRouter);
 app.use(assetsRouter);
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
     console.log('Server listening on port', port);
 });
 

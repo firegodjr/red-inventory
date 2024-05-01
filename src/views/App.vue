@@ -1,7 +1,10 @@
 <template>
-    <NavFrame v-if="UserString" />
+    <NavFrame />
 
-    <div class="login-debug yellow">
+    <div class="content-frame red">
+        <RouterView />
+    </div>
+    <div class="login-debug yellow" v-if="accountStore.account">
         Logged in as: {{ UserString }}
         <button @click="handleLogoutClick">Logout</button>
     </div>
@@ -12,10 +15,17 @@ import { onMounted, type Ref, ref } from 'vue';
 import NavFrame from '../components/navFrame.vue';
 import { HandleLogout } from '../util/clientLoginUtil';
 import '../assets/output.css';
+import { useAccountStore } from '@/stores/account';
+import { useInventoryStore } from '@/stores/inventory';
 
 let UserString: Ref<string> = ref('');
+let accountStore = useAccountStore();
+let inventoryStore = useInventoryStore();
 
 onMounted(async () => {
+    // todo show a loading icon while fetching stuff, and do it in parallel
+    await accountStore.fetchUserData();
+    await inventoryStore.fetchInventories();
     let userString = await getUserString();
     if (userString) {
         UserString.value = userString;
@@ -23,25 +33,27 @@ onMounted(async () => {
 });
 
 async function handleLogoutClick() {
-    await HandleLogout();
-    // navigateTo("/login");
+    HandleLogout().then(() => {
+        window.location.href = window.location.origin;
+    });
 }
 
 async function getUserString() {
-    // var user = await useFetch("/api/user/getUser", {
-    //     credentials: "include"
-    // });
-
-    // if(!user.data.value?.username) {
-    //     navigateTo("/login");
-    // }
-
-    // return user.data.value?.username
-    return 'user login not set up :(';
+    if (accountStore.account) {
+        return accountStore.account.username;
+    } else {
+        return 'Not Logged In';
+    }
 }
 </script>
 
 <style>
+.content-frame {
+    padding: 2em;
+    max-width: 70rem;
+    margin: auto;
+}
+
 .login-debug {
     position: fixed;
     bottom: 0;

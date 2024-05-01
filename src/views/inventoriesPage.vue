@@ -12,7 +12,7 @@
             <br />
             <GenericList
                 :add-button-string="'New Inventory'"
-                :entries="Inventories"
+                :entries="inventoryStore.inventories"
                 :entry-name-key="'name'"
                 :entry-desc-keys="['itemCount', 'userCount']"
                 :entry-desc-format="'Items: {0} - Users: {1}'"
@@ -75,26 +75,17 @@ import GenericList from '../components/generic/genericList.vue';
 import ItemIcon from '../components/inventories/itemIcon.vue';
 import { ItemQuality, ItemType, ItemTypeToString, ItemQualityToString } from '../util/itemsUtil';
 import ItemQualityStr from '../components/inventories/itemQualityStr.vue';
-import { type Inventory } from '@prisma/client';
 import { type Ref, onMounted, ref } from 'vue';
+import { useInventoryStore } from '@/stores/inventory';
 
 let SelectedInventory: Ref<any | null> = ref(null);
 let SelectedItem: Ref<any | null> = ref(null);
 let CurrPane = ref('inventories');
-let Inventories: Ref<Inventory[]> = ref([]);
+const inventoryStore = useInventoryStore();
 
 const emit = defineEmits(['reqest-modal']);
 
-onMounted(async () => {
-    await fetch('/api/user/getInventoriesForSelectedCrew', {
-        credentials: 'include'
-    })
-        .then((response) => response.json())
-        .then((json) => {
-            console.log(json);
-            Inventories.value = json;
-        });
-});
+onMounted(async () => {});
 
 async function handleInvSelected(e: any) {
     SelectedInventory.value = e;

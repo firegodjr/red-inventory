@@ -50,11 +50,14 @@ let Crews: Ref<Crew[]> = ref([]);
 let SelectedCrew: Ref<Crew | undefined> = ref(undefined);
 
 onMounted(async () => {
-    let crews = await useFetch('/api/user/getCrews', {
+    await fetch('/api/user/getCrews', {
         credentials: 'include'
-    });
-
-    Crews.value = crews.data.value as any;
+    })
+        .then((response) => response.json())
+        .then((json) => {
+            console.log(json);
+            Crews.value = json;
+        });
 });
 
 function handleAddCrew(e: any) {}

@@ -14,7 +14,8 @@
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
-    "tailwind": "tailwindcss -i ./src/assets/input.css -o ./src/assets/output.css --watch"
+    "tailwind": "tailwindcss -i ./src/assets/input.css -o ./src/assets/output.css --watch",
+    "start": "npm run build; NODE_ENV=production tsx watch ./src/_server_/index.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.12.1",
