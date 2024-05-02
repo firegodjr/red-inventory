@@ -84,11 +84,13 @@ export default function register(app: Application, prisma: PrismaClient) {
 
     app.get(PREFIX + '/getAccount', async (req, res) => {
         let user: UserData & any = res.locals.user;
-        let auth = await prisma.userAuth.findUnique({ where: { dataId: user.id } });
-        if (auth && user) {
-            res.json(toUserDto(auth, user, user.heldItems));
-        } else {
-            res.sendStatus(403);
+        if (user) {
+            let auth = await prisma.userAuth.findUnique({ where: { dataId: user.id } });
+            if (auth && user) {
+                res.json(toUserDto(auth, user, user.heldItems));
+            } else {
+                res.sendStatus(403);
+            }
         }
     });
 }
