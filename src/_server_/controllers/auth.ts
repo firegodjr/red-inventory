@@ -11,18 +11,18 @@ export default function register(app: Application, prisma: PrismaClient) {
         console.log('Body:', body);
 
         // Check if user exists
-        prisma.user
+        prisma.userAuth
             .findUnique({
                 where: {
                     username: body.username,
-                    pwdhash: body.password
+                    pwdhash: hash(body.password)
                 }
             })
             .then((user) => {
                 if (!user) throw 'Got null or undefined user?';
                 return prisma.session.create({
                     data: {
-                        userId: user.id,
+                        userId: user.dataId,
                         expiration: new Date(Date.now() + 15 * 60 * 1000) // 15 mins
                     }
                 });
@@ -37,6 +37,49 @@ export default function register(app: Application, prisma: PrismaClient) {
             });
     });
 
+    app.post(PREFIX + '/register', async (req, res) => {
+        let body = req.body as LoginDto;
+        console.log('Body:', body);
+
+        // Check if user exists
+        prisma.userAuth
+            .findUnique({
+                where: {
+                    username: body.username
+                }
+            })
+            .then((user) => {
+                if (user) {
+                    res.send(400);
+                }
+                return prisma.userAuth.create({
+                    data: {
+                        email: '',
+                        username: body.username,
+                        pwdhash: hash(body.password),
+                        data: {
+                            create: {}
+                        }
+                    }
+                });
+            })
+            .then((userAuth) => {
+                return prisma.session.create({
+                    data: {
+                        userId: userAuth.dataId,
+                        expiration: new Date(Date.now() + 15 * 60 * 1000) // 15 mins
+                    }
+                });
+            })
+            .then((sesh) => {
+                res.cookie(SESSION_COOKIE, sesh.id);
+                res.send(200);
+            })
+            .catch((error) => {
+                console.log('Login error:', error);
+                res.sendStatus(500);
+            });
+    });
     app.post(PREFIX + '/logout', async (req, res) => {
         const user = res.locals.user;
         const seshId = res.locals.seshId;
@@ -47,4 +90,8 @@ export default function register(app: Application, prisma: PrismaClient) {
 
         res.sendStatus(200);
     });
+}
+
+function hash(pwd: string) {
+    return pwd;
 }

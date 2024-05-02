@@ -11,11 +11,13 @@
                 <div
                     :tabindex="0"
                     class="cyber-list-entry"
-                    :class="{ clickable: !noclick }"
+                    :class="{ selected: entry == selectedEntry, clickable: !noclick }"
                     @click="() => emit('entry-click', entry)"
                 >
                     <ItemIcon v-if="getItemType" class="red" :item-type="getItemType(entry)" />
-                    <span class="blue">{{ getEntryName(entry) }}</span>
+                    <span class="blue" :class="{ yellow: entry == selectedEntry }">{{
+                        getEntryName(entry)
+                    }}</span>
                     <span class="desc white">{{ getEntryDesc(entry) }}</span>
                     <span v-if="!noclick" class="chevron"
                         ><i class="fa-solid fa-caret-right"></i
@@ -149,6 +151,11 @@ function getEntryDesc(entry: any): string {
     background-color: var(--clr-bg-red);
 }
 
+.cyber-list-entry.selected {
+    background-color: var(--clr-bg-yellow);
+    color: var(--clr-yellow);
+}
+
 .cyber-list-entry > .desc {
     font-size: smaller;
     font-weight: normal;
@@ -165,11 +172,14 @@ function getEntryDesc(entry: any): string {
 }
 
 .cyber-list-entry.clickable:hover {
-    background-color: var(--clr-bg-red);
 }
 
 .cyber-list-entry.clickable:active {
     background-color: var(--clr-bg-red-active);
+}
+
+.cyber-list-entry.clickable.selected:active {
+    background-color: var(--clr-bg-yellow-active);
 }
 
 .cyber-list-entry.add-new {

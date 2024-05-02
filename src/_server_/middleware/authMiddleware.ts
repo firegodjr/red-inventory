@@ -6,8 +6,11 @@ export default function register(app: Application, prisma: PrismaClient) {
     app.use(async (req: any, res: any, next: any) => {
         const seshId = req.cookies[SESSION_COOKIE];
         if (seshId) {
-            const user = await prisma.user.findFirst({
-                where: { sessions: { some: { id: seshId } } }
+            const user = await prisma.userData.findFirst({
+                where: { sessions: { some: { id: seshId } } },
+                include: {
+                    heldItems: true
+                }
             });
 
             if (user) {

@@ -1,5 +1,7 @@
 import type { UserDto } from '@/dto';
+import type { UserData } from '@prisma/client';
 import { defineStore } from 'pinia';
+import { useInventoryStore } from './inventory';
 
 export const useAccountStore = defineStore({
     id: 'account',
@@ -20,6 +22,36 @@ export const useAccountStore = defineStore({
                         this.loading = false;
                     });
             } catch (err: any) {}
+        },
+
+        async updateActiveCrew(crewId: string) {
+            await fetch('/api/user/selectCrew', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    crewId: crewId
+                })
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        if (!this.account) {
+                            return this.fetchUserData();
+                        }
+                    }
+                })
+                .then((response) => {
+                    if (this.account) {
+                        this.account.selectedCrewId = crewId;
+                    }
+                })
+                .finally(() => {
+                    // Update stores that depend on crew selection
+                    const inventoryStore = useInventoryStore();
+                    inventoryStore.fetchInventories();
+                });
         }
     }
 });

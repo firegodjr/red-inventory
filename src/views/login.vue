@@ -8,6 +8,7 @@
         <label>Password</label>
         <input type="password" v-model="Password" />
         <br />
+        <button @click="register">Register</button>
         <button @click="submit">Login</button>
     </div>
 </template>
@@ -22,6 +23,11 @@ let Error = ref('');
 
 async function submit() {
     HandleLogin(Username.value, Password.value).then((result) => {
+        if (result && result.ok) window.location.href = window.location.pathname;
+    });
+}
+async function register() {
+    HandleRegister(Email.value, Username.value, Password.value).then((result) => {
         if (result && result.ok) window.location.href = window.location.pathname;
     });
 }
