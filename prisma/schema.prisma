@@ -35,12 +35,14 @@ model UserAuth {
 }
 
 model UserData {
-  id             String    @id @default(uuid())
-  username String
+  id             String     @id @default(uuid())
+  username       String
   crews          Crew[]
   selectedCrewId String?
-  sessions       Session[] @relation
-  heldItems      Item[]    @relation
+  friends        UserData[] @relation("friends")
+  friendRelation UserData[] @relation("friends")
+  sessions       Session[]  @relation
+  heldItems      Item[]     @relation
   UserAuth       UserAuth?
 }
 
