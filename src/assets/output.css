@@ -574,6 +574,10 @@ video {
   top: 0.75rem;
 }
 
+.float-right {
+  float: right;
+}
+
 .block {
   display: block;
 }

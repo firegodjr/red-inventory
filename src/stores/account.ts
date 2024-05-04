@@ -1,4 +1,4 @@
-import type { UserDto } from '@/dto';
+import type { FriendDto, UserDto } from '@/dto';
 import type { UserData } from '@prisma/client';
 import { defineStore } from 'pinia';
 import { useInventoryStore } from './inventory';

@@ -11,15 +11,6 @@
             <span class="red">Email <i class="fa-solid fa-caret-right"></i></span>
             {{ accountStore.account?.email }}
         </h2>
-        <label>Current Crew</label>
-        <select @change="handleCrewSelected">
-            <option>None</option>
-            <option v-for="crew in CrewsForUser" value="">{{ crew.name }}</option>
-        </select>
-    </div>
-    <div>
-        <label>Email Address</label>
-        <input type="email" />
     </div>
 </template>
 

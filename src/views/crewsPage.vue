@@ -62,7 +62,6 @@ let SelectedCrew: Ref<Crew | undefined> = ref(undefined);
 let accountStore = useAccountStore();
 
 onMounted(async () => {
-    await accountStore.fetchUserData();
     await fetch('/api/user/getCrews', {
         credentials: 'include'
     })

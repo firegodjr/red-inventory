@@ -10,6 +10,7 @@ async function seed() {
             pwdhash: "password",
             data: {
                 create: {
+                username: "coyote",
                 selectedCrewId: null,
                     crews: {
                         create: [

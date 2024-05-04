@@ -1,5 +1,5 @@
 import { toUserDto, type SelectCrewDto } from '../../dto';
-import type { PrismaClient, UserData } from '@prisma/client';
+import type { PrismaClient, UserAuth, UserData } from '@prisma/client';
 import { type Application } from 'express';
 
 const PREFIX = '/api/user';
@@ -45,7 +45,6 @@ export default function register(app: Application, prisma: PrismaClient) {
     });
 
     app.get(PREFIX + '/getInventoriesForSelectedCrew', async (req, res) => {
-        console.log('getting inventories...');
         let user: UserData = res.locals.user;
         if (user && user.selectedCrewId) {
             let inventories = await prisma.inventory.findMany({
@@ -59,7 +58,6 @@ export default function register(app: Application, prisma: PrismaClient) {
                     }
                 }
             });
-            console.log(inventories);
             res.json(inventories);
         } else if (user) {
             // user has no selected crew
@@ -67,6 +65,23 @@ export default function register(app: Application, prisma: PrismaClient) {
         } else {
             // not logged in
             res.sendStatus(403);
+        }
+    });
+
+    app.get(PREFIX + '/getUser', async (req, res) => {
+        const userId = req.query.id as string;
+        if (userId) {
+            await prisma.userData
+                .findFirst({ where: { id: userId }, include: { heldItems: true, UserAuth: true } })
+                .then((user) => {
+                    if (user) {
+                        res.send(toUserDto(user.UserAuth as UserAuth, user, user.heldItems));
+                    } else {
+                        res.sendStatus(404);
+                    }
+                });
+        } else {
+            res.sendStatus(404);
         }
     });
 

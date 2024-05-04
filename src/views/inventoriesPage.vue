@@ -45,25 +45,9 @@
             </GenericList>
         </template>
         <template v-slot:itemView>
-            <button class="back-btn" @click="() => (CurrPane = 'items')">Back to Items</button
-            ><br />
-            <h1 class="red">{{ SelectedItem?.name }}</h1>
-            <h3 class="white">
-                <ItemIcon :item-type="SelectedItem?.type || ItemType.NONE" />
-                <ItemQualityStr :quality="SelectedItem?.quality || ItemQuality.NONE" />
-                {{ ItemTypeToString(SelectedItem?.type) }}
-            </h3>
+            <button class="back-btn" @click="() => (CurrPane = 'items')">Back to Items</button>
             <br />
-            <h3>Attributes</h3>
-            <GenericList
-                :noclick="true"
-                :entries="SelectedItem?.fields"
-                :entry-name-key="'name'"
-                :entry-desc-keys="['value']"
-                :entry-desc-format="'{0}'"
-            >
-                <i class="fa-solid fa-paperclip"></i>
-            </GenericList>
+            <ItemView v-if="SelectedItem" :item="SelectedItem" />
         </template>
     </HoloPanes>
 </template>
@@ -77,6 +61,8 @@ import { ItemQuality, ItemType, ItemTypeToString, ItemQualityToString } from '..
 import ItemQualityStr from '../components/inventories/itemQualityStr.vue';
 import { type Ref, onMounted, ref } from 'vue';
 import { useInventoryStore } from '@/stores/inventory';
+import ItemView from './ItemView.vue';
+import { type Item } from '@prisma/client';
 
 let SelectedInventory: Ref<any | null> = ref(null);
 let SelectedItem: Ref<any | null> = ref(null);

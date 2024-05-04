@@ -34,6 +34,13 @@ export default function register(app: Application, prisma: PrismaClient) {
                     next();
                 }
             }
+        } else {
+            const sfd = req.header('Sec-Fetch-Dest');
+            if (sfd === 'document' && !req.url.endsWith('/login')) {
+                res.redirect('/login');
+            } else {
+                next();
+            }
         }
     });
 }

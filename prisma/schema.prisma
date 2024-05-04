@@ -36,6 +36,7 @@ model UserAuth {
 
 model UserData {
   id             String    @id @default(uuid())
+  username String
   crews          Crew[]
   selectedCrewId String?
   sessions       Session[] @relation

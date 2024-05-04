@@ -7,6 +7,7 @@ import assetsRouter from './assetsRouter';
 import cookieParser from 'cookie-parser';
 import { PrismaClient } from '@prisma/client';
 import authMiddleware from './middleware/authMiddleware';
+import itemsController from './controllers/itemsController';
 
 const port = parseInt(process.env.PORT || '3000');
 
@@ -20,6 +21,7 @@ authMiddleware(app, prisma);
 // Register api controller endpoints
 userController(app, prisma);
 authController(app, prisma);
+itemsController(app, prisma);
 
 app.get('/api/v1/hello', (_req, res) => {
     res.json({ message: 'Hello, world!' });
@@ -41,8 +43,8 @@ simpleRouter.get('/*', async (_req, res) => {
     res.render('index.html.ejs', routerData);
 });
 
-app.use(simpleRouter);
 app.use(assetsRouter);
+app.use(simpleRouter);
 
 app.listen(port, '0.0.0.0', () => {
     console.log('Server listening on port', port);
