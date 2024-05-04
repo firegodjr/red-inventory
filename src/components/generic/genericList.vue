@@ -172,10 +172,15 @@ function getEntryDesc(entry: any): string {
 }
 
 .cyber-list-entry.clickable:hover {
+    background-color: var(--clr-bg-red-hover);
 }
 
 .cyber-list-entry.clickable:active {
     background-color: var(--clr-bg-red-active);
+}
+
+.cyber-list-entry.clickable.selected:hover {
+    background-color: var(--clr-bg-yellow-hover);
 }
 
 .cyber-list-entry.clickable.selected:active {

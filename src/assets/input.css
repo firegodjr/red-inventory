@@ -37,9 +37,11 @@
   --clr-bg-green-active: #1cff9b50;
   --clr-text-red: #ed3d37;
   --clr-bg-red: #ed3d3710;
+  --clr-bg-red-hover: #ed3d3720;
   --clr-bg-red-active: #ed3d3750;
   --clr-text-yellow: #ffbb00;
   --clr-bg-yellow: #ffbb0020;
+  --clr-bg-yellow-hover: #ffbb0030;
   --clr-bg-yellow-active: #ffbb0050;
   --clr-bg-hover: rgba(255, 255, 255, 0.2);
   --clr-bg-active: rgba(255, 255, 255, 0.5);
