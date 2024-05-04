@@ -1,21 +1,23 @@
 <template>
-    <h1>Account</h1>
-    <p>Your detes.</p>
-    <br />
-    <div class="white" v-if="accountStore.account">
-        <h2>
-            <span class="red">User <i class="fa-solid fa-caret-right"></i></span>
-            {{ accountStore.account?.username }}
-        </h2>
-        <h2>
-            <span class="red">Email <i class="fa-solid fa-caret-right"></i></span>
-            {{ accountStore.account?.email }}
-        </h2>
+    <div>
+        <h1>Account</h1>
+        <p>Your detes.</p>
+        <br />
+        <div class="white" v-if="accountStore.account">
+            <h2>
+                <span class="red">User <i class="fa-solid fa-caret-right"></i></span>
+                {{ accountStore.account?.username }}
+            </h2>
+            <h2>
+                <span class="red">Email <i class="fa-solid fa-caret-right"></i></span>
+                {{ accountStore.account?.email }}
+            </h2>
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import type { Crew, User } from '.prisma/client';
+import type { Crew } from '@prisma/client';
 import { onMounted, ref, type Ref } from 'vue';
 import { useAccountStore } from '@/stores/account';
 

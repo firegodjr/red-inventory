@@ -2,7 +2,11 @@
     <NavFrame />
 
     <div class="content-frame red">
-        <RouterView />
+        <RouterView v-slot="{ Component }">
+            <Transition name="fade">
+                <component :is="Component" />
+            </Transition>
+        </RouterView>
     </div>
     <div class="login-debug yellow" v-if="accountStore.account">
         Logged in as: {{ UserString }}
@@ -58,5 +62,21 @@ async function getUserString() {
     position: fixed;
     bottom: 0;
     padding: 0.5em;
+}
+
+/* Transition */
+.fade-enter-active,
+.fade-leave-active {
+    transition: 0.2s ease;
+}
+
+.fade-enter-from {
+    opacity: 0;
+    transform: scale(1.2);
+}
+.fade-leave-to {
+    opacity: 0;
+    transform: scale(0.8);
+    filter: blur(9px);
 }
 </style>

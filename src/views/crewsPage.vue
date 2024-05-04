@@ -1,40 +1,41 @@
 <template>
-    <HoloPanes :show-header="false" :pane-names="['crews', 'crewinfo']" :curr-pane="CurrPane">
-        <template v-slot:crews>
-            <div class="relative">
-                <h1 class="red">CREWS</h1>
-                <p>Keep track of your choombas in crime.</p>
-            </div>
-            <br />
-            <GenericList
-                :selected-entry="
-                    Crews.filter((crew) => crew.id == accountStore.account?.selectedCrewId)[0]
-                "
-                :add-button-string="'Add a Crew'"
-                :entries="Crews"
-                :entry-name-key="'name'"
-                :entry-desc-keys="['itemCount']"
-                :entry-desc-format="'Users: {0}'"
-                @addbtn-click="handleAddCrew"
-                @entry-click="handleCrewSelected"
-            >
-                <i class="fa-solid fa-handshake fa-sm"></i>
-            </GenericList>
-        </template>
-        <template v-slot:crewinfo>
-            <button class="back-btn" @click="() => (CurrPane = 'crews')">Back to Crews</button
-            ><br />
-            <h1 class="white"><span class="red">></span> {{ SelectedCrew?.name }}</h1>
-            <button
-                v-if="accountStore.account?.selectedCrewId !== SelectedCrew?.id"
-                @click="handleSetActiveCrew"
-            >
-                Set as Active
-            </button>
-            <h3 v-else class="yellow">Active Crew</h3>
+    <div>
+        <HoloPanes :show-header="false" :pane-names="['crews', 'crewinfo']" :curr-pane="CurrPane">
+            <template v-slot:crews>
+                <div class="relative">
+                    <h1 class="red">CREWS</h1>
+                    <p>Keep track of your choombas in crime.</p>
+                </div>
+                <br />
+                <GenericList
+                    :selected-entry="
+                        Crews.filter((crew) => crew.id == accountStore.account?.selectedCrewId)[0]
+                    "
+                    :add-button-string="'Add a Crew'"
+                    :entries="Crews"
+                    :entry-name-key="'name'"
+                    :entry-desc-keys="['itemCount']"
+                    :entry-desc-format="'Users: {0}'"
+                    @addbtn-click="handleAddCrew"
+                    @entry-click="handleCrewSelected"
+                >
+                    <i class="fa-solid fa-handshake fa-sm"></i>
+                </GenericList>
+            </template>
+            <template v-slot:crewinfo>
+                <button class="back-btn" @click="() => (CurrPane = 'crews')">Back to Crews</button
+                ><br />
+                <h1 class="white"><span class="red">></span> {{ SelectedCrew?.name }}</h1>
+                <button
+                    v-if="accountStore.account?.selectedCrewId !== SelectedCrew?.id"
+                    @click="handleSetActiveCrew"
+                >
+                    Set as Active
+                </button>
+                <h3 v-else class="yellow">Active Crew</h3>
 
-            <br />
-            <!-- <GenericList 
+                <br />
+                <!-- <GenericList 
             :add-button-string="'Add Edgerunners'"
             :entries="SelectedCrew?.users" 
             :entry-name-key="'name'" 
@@ -45,8 +46,9 @@
             @entry-click="">
                 <i class="fa-solid fa-boxes-stacked"></i>
             </GenericList> -->
-        </template>
-    </HoloPanes>
+            </template>
+        </HoloPanes>
+    </div>
 </template>
 
 <script lang="ts" setup>

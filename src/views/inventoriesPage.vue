@@ -1,55 +1,57 @@
 <template>
-    <HoloPanes
-        :show-header="false"
-        :pane-names="['inventories', 'items', 'itemView']"
-        :curr-pane="CurrPane"
-    >
-        <template v-slot:inventories>
-            <div class="relative">
-                <h1>INVENTORIES</h1>
-                <p>Where your crew stashes loot, guns, and chrome.</p>
-            </div>
-            <br />
-            <GenericList
-                :add-button-string="'New Inventory'"
-                :entries="inventoryStore.inventories"
-                :entry-name-key="'name'"
-                :entry-desc-keys="['itemCount', 'userCount']"
-                :entry-desc-format="'Items: {0} - Users: {1}'"
-                @addbtn-click="handleAddInventory"
-                @entry-click="handleInvSelected"
-            >
-                <i class="fa-solid fa-layer-group fa-sm"></i>
-            </GenericList>
-        </template>
-        <template v-slot:items>
-            <button class="back-btn" @click="() => (CurrPane = 'inventories')">
-                Back to Inventories</button
-            ><br />
-            <h1>{{ SelectedInventory?.name }}</h1>
+    <div>
+        <HoloPanes
+            :show-header="false"
+            :pane-names="['inventories', 'items', 'itemView']"
+            :curr-pane="CurrPane"
+        >
+            <template v-slot:inventories>
+                <div class="relative">
+                    <h1>INVENTORIES</h1>
+                    <p>Where your crew stashes loot, guns, and chrome.</p>
+                </div>
+                <br />
+                <GenericList
+                    :add-button-string="'New Inventory'"
+                    :entries="inventoryStore.inventories"
+                    :entry-name-key="'name'"
+                    :entry-desc-keys="['itemCount', 'userCount']"
+                    :entry-desc-format="'Items: {0} - Users: {1}'"
+                    @addbtn-click="handleAddInventory"
+                    @entry-click="handleInvSelected"
+                >
+                    <i class="fa-solid fa-layer-group fa-sm"></i>
+                </GenericList>
+            </template>
+            <template v-slot:items>
+                <button class="back-btn" @click="() => (CurrPane = 'inventories')">
+                    Back to Inventories</button
+                ><br />
+                <h1>{{ SelectedInventory?.name }}</h1>
 
-            <br />
-            <GenericList
-                :add-button-string="'New Item'"
-                :entries="SelectedInventory?.items"
-                :entry-name-key="'name'"
-                :entry-desc-keys="
-                    (e) => [ItemQualityToString(e.quality), ItemTypeToString(e.type), e.count]
-                "
-                :entry-desc-format="'{0} {1} x{2}'"
-                :get-item-type="(e) => e.type"
-                @addbtn-click="handleAddItem"
-                @entry-click="handleItemSelected"
-            >
-                <i class="fa-solid fa-boxes-stacked"></i>
-            </GenericList>
-        </template>
-        <template v-slot:itemView>
-            <button class="back-btn" @click="() => (CurrPane = 'items')">Back to Items</button>
-            <br />
-            <ItemView v-if="SelectedItem" :item="SelectedItem" />
-        </template>
-    </HoloPanes>
+                <br />
+                <GenericList
+                    :add-button-string="'New Item'"
+                    :entries="SelectedInventory?.items"
+                    :entry-name-key="'name'"
+                    :entry-desc-keys="
+                        (e) => [ItemQualityToString(e.quality), ItemTypeToString(e.type), e.count]
+                    "
+                    :entry-desc-format="'{0} {1} x{2}'"
+                    :get-item-type="(e) => e.type"
+                    @addbtn-click="handleAddItem"
+                    @entry-click="handleItemSelected"
+                >
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                </GenericList>
+            </template>
+            <template v-slot:itemView>
+                <button class="back-btn" @click="() => (CurrPane = 'items')">Back to Items</button>
+                <br />
+                <ItemView v-if="SelectedItem" :item="SelectedItem" />
+            </template>
+        </HoloPanes>
+    </div>
 </template>
 
 <script setup lang="ts">
