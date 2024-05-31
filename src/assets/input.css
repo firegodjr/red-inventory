@@ -49,11 +49,21 @@
   font-family: Radjhani;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   height: 100vh;
   background: rgb(0, 22, 20);
   background: linear-gradient(0deg, rgb(0, 14, 12) 0%, #27080f 100%);
   overflow-x: hidden;
+}
+
+#trs {
+  position: absolute;
+  left: 2em;
+  right: 2em;
 }
 
 .add-new:hover {

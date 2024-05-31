@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="trs">
         <HoloPanes :show-header="false" :pane-names="['crews', 'crewinfo']" :curr-pane="CurrPane">
             <template v-slot:crews>
                 <div class="relative">

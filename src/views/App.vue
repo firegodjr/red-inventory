@@ -53,6 +53,7 @@ async function getUserString() {
 
 <style>
 .content-frame {
+    position: relative;
     padding: 2em;
     max-width: 70rem;
     margin: auto;

@@ -23,16 +23,18 @@ userController(app, prisma);
 authController(app, prisma);
 itemsController(app, prisma);
 
-app.get('/api/v1/hello', (_req, res) => {
-    res.json({ message: 'Hello, world!' });
-});
-
+// Register static file paths
 const publicPath = path.join(path.resolve(), 'public');
 const assetsPath = path.join(path.resolve(), 'dist/assets');
 app.use('/', express.static(publicPath));
 app.use('/assets/', express.static(assetsPath));
 
 const environment = process.env.NODE_ENV;
+
+// Allows vite to serve static assets
+app.use(assetsRouter);
+
+// Route any undefined route to index.html, for vue-router to handle
 const simpleRouter = express.Router();
 simpleRouter.get('/*', async (_req, res) => {
     const routerData = {
@@ -42,8 +44,6 @@ simpleRouter.get('/*', async (_req, res) => {
     };
     res.render('index.html.ejs', routerData);
 });
-
-app.use(assetsRouter);
 app.use(simpleRouter);
 
 app.listen(port, '0.0.0.0', () => {

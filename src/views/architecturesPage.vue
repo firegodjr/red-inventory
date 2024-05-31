@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="trs">
         <HoloPanes :pane-names="['architectures', 'archView']" :curr-pane="CurrPane">
             <template v-slot:architectures>
                 <div class="relative">

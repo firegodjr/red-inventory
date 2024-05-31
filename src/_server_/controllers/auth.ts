@@ -19,17 +19,22 @@ export default function register(app: Application, prisma: PrismaClient) {
                 }
             })
             .then((user) => {
-                if (!user) throw 'Got null or undefined user?';
-                return prisma.session.create({
-                    data: {
-                        userId: user.dataId,
-                        expiration: new Date(Date.now() + 15 * 60 * 1000) // 15 mins
-                    }
-                });
+                if (!user) {
+                    res.send({ success: false, message: 'Username or password is incorrect' });
+                } else {
+                    return prisma.session.create({
+                        data: {
+                            userId: user.dataId,
+                            expiration: new Date(Date.now() + 15 * 60 * 1000) // 15 mins
+                        }
+                    });
+                }
             })
             .then((sesh) => {
-                res.cookie(SESSION_COOKIE, sesh.id);
-                res.send(200);
+                if (sesh) {
+                    res.cookie(SESSION_COOKIE, sesh.id);
+                    res.send({ success: true });
+                }
             })
             .catch((error) => {
                 console.log('Login error:', error);

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="trs">
         <HoloPanes
             :show-header="false"
             :pane-names="['inventories', 'items', 'itemView']"

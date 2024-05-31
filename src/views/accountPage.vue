@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <h1>Account</h1>
+    <div id="trs">
+        <h1>ACCOUNT</h1>
         <p>Your detes.</p>
         <br />
         <div class="white" v-if="accountStore.account">

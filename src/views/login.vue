@@ -1,15 +1,18 @@
 <template>
-    <div class="login-box red">
-        <h1>Login</h1>
-        <h3 class="yellow">{{ Error }}</h3>
-        <label>Username</label>
-        <input type="text" v-model="Username" />
-        <br />
-        <label>Password</label>
-        <input type="password" v-model="Password" />
-        <br />
-        <button @click="register">Register</button>
-        <button @click="submit">Login</button>
+    <div id="trs">
+        <div class="login-box red">
+            <h1>Login</h1>
+            <h3>Welcome back, cyberpunk.</h3>
+            <h3 class="yellow">{{ Error }}</h3>
+            <label>Username</label>
+            <input type="text" v-model="Username" />
+            <br />
+            <label>Password</label>
+            <input type="password" v-model="Password" @keyup="handleKeyup" />
+            <br />
+            <router-link :to="{ name: 'register' }"><button>Register</button></router-link>
+            <button @click="submit">Login</button>
+        </div>
     </div>
 </template>
 
@@ -21,15 +24,24 @@ let Username = ref('');
 let Password = ref('');
 let Error = ref('');
 
-async function submit() {
-    HandleLogin(Username.value, Password.value).then((result) => {
-        if (result && result.ok) window.location.href = window.location.pathname;
-    });
+function handleKeyup(ev: KeyboardEvent) {
+    if (ev.key == 'Enter') {
+        submit();
+    }
 }
-async function register() {
-    HandleRegister(Email.value, Username.value, Password.value).then((result) => {
-        if (result && result.ok) window.location.href = window.location.pathname;
-    });
+
+async function submit() {
+    HandleLogin(Username.value, Password.value)
+        .then(async (result) => {
+            if (result) return result.json();
+        })
+        .then((json) => {
+            if (json.success) {
+                window.location.href = window.location.pathname;
+            } else {
+                Error.value = json.message;
+            }
+        });
 }
 </script>
 
