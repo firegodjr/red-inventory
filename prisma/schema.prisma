@@ -35,14 +35,16 @@ model UserAuth {
 }
 
 model UserData {
-  id             String     @id @default(uuid())
+  id             String         @id @default(uuid())
   username       String
   crews          Crew[]
   selectedCrewId String?
-  friends        UserData[] @relation("friends")
-  friendRelation UserData[] @relation("friends")
-  sessions       Session[]  @relation
-  heldItems      Item[]     @relation
+  friends        UserData[]     @relation("friends")
+  friendRelation UserData[]     @relation("friends")
+  recvNotifs     UserNotif[] @relation("recipient")
+  sentNotifs     UserNotif[] @relation("sender")
+  sessions       Session[]      @relation
+  heldItems      Item[]         @relation
   UserAuth       UserAuth?
 }
 
@@ -73,4 +75,16 @@ model Field {
   value  String
   item   Item   @relation(fields: [itemId], references: [id])
   itemId String
+}
+
+model UserNotif {
+  id          String    @id @default(uuid())
+  recipient   UserData @relation("recipient", fields: [recipientId], references: [id])
+  recipientId String
+  sender      UserData @relation("sender", fields: [senderId], references: [id])
+  senderId    String
+  title       String
+  content     String?
+  action      String
+  unread      Boolean   @default(false)
 }

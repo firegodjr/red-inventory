@@ -193,8 +193,9 @@ function getEntryDesc(entry: any): string {
 }
 
 .cool-code {
+    padding-top: 0.5em;
     overflow: hidden;
-    height: 3.5em;
+    height: 5em;
 }
 @container generic-list (max-width: 400px) {
     .cyber-list-entry * {

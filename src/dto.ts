@@ -1,4 +1,4 @@
-import type { Item, UserAuth, UserData } from '@prisma/client';
+import type { Item, UserAuth, UserData, UserNotif } from '@prisma/client';
 
 export interface LoginDto {
     username: string;
@@ -21,6 +21,7 @@ export interface UserDto {
     username: string;
     selectedCrewId: string | null;
     heldItems: Item[];
+    notifs: UserNotif[];
 }
 
 export interface FriendDto {
@@ -29,13 +30,19 @@ export interface FriendDto {
     heldItems: Item[];
 }
 
-export function toUserDto(auth: UserAuth, user: UserData, heldItems: Item[]): UserDto {
+export function toUserDto(
+    auth: UserAuth,
+    user: UserData,
+    heldItems: Item[],
+    notifs: UserNotif[]
+): UserDto {
     return {
         dataId: user.id,
         icon: new Blob(),
         email: auth.email,
         username: auth.username,
         selectedCrewId: user.selectedCrewId,
-        heldItems: heldItems
+        heldItems: heldItems,
+        notifs: notifs
     };
 }

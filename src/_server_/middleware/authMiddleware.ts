@@ -9,7 +9,8 @@ export default function register(app: Application, prisma: PrismaClient) {
             const user = await prisma.userData.findFirst({
                 where: { sessions: { some: { id: seshId } } },
                 include: {
-                    heldItems: true
+                    heldItems: true,
+                    recvNotifs: true
                 }
             });
 

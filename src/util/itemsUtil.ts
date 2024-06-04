@@ -41,7 +41,11 @@ export enum ItemType {
     FS_ASIA,
     FS_URBAN,
     FS_BUSINESS,
-    FS_HIGH
+    FS_HIGH,
+
+    // Hacks //
+    UNREAD,
+    READ
 }
 
 const ItemTypeToStringMap: Record<ItemType, string> = {
@@ -81,7 +85,9 @@ const ItemTypeToStringMap: Record<ItemType, string> = {
     [ItemType.FS_ASIA]: 'Asia Pop',
     [ItemType.FS_URBAN]: 'Urban Flash',
     [ItemType.FS_BUSINESS]: 'Businesswear',
-    [ItemType.FS_HIGH]: 'High Fashion'
+    [ItemType.FS_HIGH]: 'High Fashion',
+    [ItemType.UNREAD]: 'Unread',
+    [ItemType.READ]: 'Read'
 };
 
 export function ItemTypeToString(type: ItemType): string {

@@ -72,10 +72,20 @@ export default function register(app: Application, prisma: PrismaClient) {
         const userId = req.query.id as string;
         if (userId) {
             await prisma.userData
-                .findFirst({ where: { id: userId }, include: { heldItems: true, UserAuth: true } })
+                .findFirst({
+                    where: { id: userId },
+                    include: { heldItems: true, recvNotifs: true, UserAuth: true }
+                })
                 .then((user) => {
                     if (user) {
-                        res.send(toUserDto(user.UserAuth as UserAuth, user, user.heldItems));
+                        res.send(
+                            toUserDto(
+                                user.UserAuth as UserAuth,
+                                user,
+                                user.heldItems,
+                                user.recvNotifs
+                            )
+                        );
                     } else {
                         res.sendStatus(404);
                     }
@@ -102,7 +112,7 @@ export default function register(app: Application, prisma: PrismaClient) {
         if (user) {
             let auth = await prisma.userAuth.findUnique({ where: { dataId: user.id } });
             if (auth && user) {
-                res.json(toUserDto(auth, user, user.heldItems));
+                res.json(toUserDto(auth, user, user.heldItems, user.recvNotifs));
             } else {
                 res.sendStatus(403);
             }

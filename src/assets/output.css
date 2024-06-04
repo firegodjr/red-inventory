@@ -574,6 +574,10 @@ video {
   top: 0.75rem;
 }
 
+.z-10 {
+  z-index: 10;
+}
+
 .float-right {
   float: right;
 }
@@ -596,6 +600,29 @@ video {
 
 .p-3 {
   padding: 0.75rem;
+}
+
+.px-1 {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+
+.px-0 {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.pr-4 {
+  padding-right: 1rem;
+}
+
+.pr-8 {
+  padding-right: 2rem;
 }
 
 .blur {
@@ -742,6 +769,13 @@ body {
   background-color: var(--clr-text-yellow);
   box-shadow: 0 0 7px var(--clr-text-yellow);
   color: black;
+}
+
+.yellow-box-hollow {
+  padding: 0.5em;
+  background-color: transparent;
+  box-shadow: 0 0 3px var(--clr-text-yellow), 0 0 3px var(--clr-text-yellow) inset;
+  outline: 1px solid var(--clr-text-yellow);
 }
 
 h1 {

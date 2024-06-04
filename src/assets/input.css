@@ -126,6 +126,13 @@ body {
   color: black;
 }
 
+.yellow-box-hollow {
+  padding: 0.5em;
+  background-color: transparent;
+  box-shadow: 0 0 3px var(--clr-text-yellow), 0 0 3px var(--clr-text-yellow) inset;
+  outline: 1px solid var(--clr-text-yellow);
+}
+
 h1 {
   font-size: xx-large;
   font-weight: bold;
