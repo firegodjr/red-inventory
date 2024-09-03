@@ -46,24 +46,7 @@
                     <button class="back-btn" @click="() => (CurrPane = 'notifications')">
                         Back to Notifs
                     </button>
-                    <br />
-                    <h1 class="blue text-header">
-                        {{ userStore.users[SelectedNotif?.senderId].username }}
-                    </h1>
-                    <div class="blue-box line-thin"></div>
-                    <br />
-                    <div>
-                        <h3>
-                            <span class="yellow">{{
-                                userStore.users[SelectedNotif?.senderId].username
-                            }}</span>
-                        </h3>
-                        <div class="text-msg yellow-box-hollow yellow">
-                            <h2>{{ SelectedNotif?.title }}</h2>
-                            <div class="yellow-box line-thin"></div>
-                            <p>{{ SelectedNotif?.content }}</p>
-                        </div>
-                    </div>
+                    <MessagesView :notif="SelectedNotif" />
                 </template>
             </template>
         </HoloPanes>
@@ -78,6 +61,7 @@ import { useUsersStore } from '@/stores/users';
 import GenericList from '@/components/generic/genericList.vue';
 import HoloPanes from '@/components/generic/holoPanes.vue';
 import { ItemType } from '@/util/itemsUtil';
+import MessagesView from '@/components/messagin/messagesView.vue';
 
 let CurrPane: Ref<string> = ref('details');
 let SelectedNotif: Ref<UserNotif | undefined> = ref();
