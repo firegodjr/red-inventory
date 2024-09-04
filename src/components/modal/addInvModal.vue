@@ -20,6 +20,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref, type Ref } from 'vue';
 import { ModalType } from '../modal';
 
 var emit = defineEmits(['submit', 'cancel']);
