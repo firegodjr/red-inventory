@@ -7,7 +7,8 @@
         <div class="modal-content">
             <h1>Add a New Inventory for {{ crewName }}</h1>
             <label>Name</label>
-            <input type="text" ref="nameField" placeholder="ex. Storage Locker" />
+            <input type="text" ref="nameField" placeholder="ex. Storage Locker"
+                @keyup.enter="emit('submit', makeResultsObj())" @keyup.esc="emit('cancel')" />
             <br />
             <br />
             <button class="red" @click="() => emit('cancel')">Cancel</button>
@@ -46,6 +47,7 @@ onMounted(async () => {
     let crewId = accountStore.account?.selectedCrewId;
     let crew = await userStore.getCrew(crewId as string);
     crewName.value = crew.name;
+    nameField.value?.focus();
 });
 </script>
 <style scoped>

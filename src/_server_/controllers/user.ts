@@ -70,10 +70,14 @@ export default function register(app: Application, prisma: PrismaClient) {
 
     app.post(PREFIX + '/addInventory', async (req, res) => {
         let user: UserData = res.locals.user;
-        let name = req.body.name;
+        let name: string = req.body.name;
 
         if (!user.selectedCrewId) {
             res.sendStatus(409); //conflict
+            return;
+        }
+        else if (name.length == 0) {
+            res.sendStatus(400);
             return;
         }
 

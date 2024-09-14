@@ -7,7 +7,7 @@
                     <button @click="showModal = false">Confirm</button>
                 </div>
                 <div v-if="modalType == ModalType.NEW_INV">
-                    <AddInvModal @submit="handleAddInv" />
+                    <AddInvModal @cancel="showModal = false" @submit="handleAddInv" />
                 </div>
                 <div v-if="modalType == ModalType.NEW_INV_ITEM"></div>
                 <div v-if="modalType == ModalType.NEW_INV_ITEM_ATTR"></div>
