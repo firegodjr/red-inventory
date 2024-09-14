@@ -1,6 +1,6 @@
 <template>
     <NavFrame />
-
+    <ModalViewer />
     <div class="content-frame red">
         <RouterView v-slot="{ Component }">
             <Transition name="fade">
@@ -21,6 +21,7 @@ import { HandleLogout } from '../util/clientLoginUtil';
 import '../assets/output.css';
 import { useAccountStore } from '@/stores/account';
 import { useInventoryStore } from '@/stores/inventory';
+import ModalViewer from '../components/modal/modalViewer.vue';
 
 let UserString: Ref<string> = ref('');
 let accountStore = useAccountStore();
@@ -75,6 +76,7 @@ async function getUserString() {
     opacity: 0;
     transform: scale(1.2);
 }
+
 .fade-leave-to {
     opacity: 0;
     transform: scale(0.8);

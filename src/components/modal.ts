@@ -7,3 +7,21 @@ export enum ModalType {
     NEW_ARCH_ITEM = 'modalAddArchItem',
     CONFIRM = 'modalConfirm'
 }
+
+export class ModalRequest {
+    public type: ModalType
+    public text: string
+
+    constructor(type: ModalType, text: string) {
+        this.type = type
+        this.text = text
+    }
+}
+
+export class ModalResult {
+    public results: { [key: string ]: any }
+
+    constructor(results: { [key: string ]: any }) {
+        this.results = results
+    }
+}

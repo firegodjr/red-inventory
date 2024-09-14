@@ -68,6 +68,29 @@ export default function register(app: Application, prisma: PrismaClient) {
         }
     });
 
+    app.post(PREFIX + '/addInventory', async (req, res) => {
+        let user: UserData = res.locals.user;
+        let name = req.body.name;
+
+        if (!user.selectedCrewId) {
+            res.sendStatus(409); //conflict
+            return;
+        }
+
+        try {
+            let inv = await prisma.inventory.create({
+                data: {
+                    crewId: user.selectedCrewId,
+                    name: name
+                }
+            });
+            res.json(inv);
+        }
+        catch {
+            res.sendStatus(500);
+        }
+    });
+
     app.get(PREFIX + '/getUser', async (req, res) => {
         const userId = req.query.id as string;
         if (userId) {

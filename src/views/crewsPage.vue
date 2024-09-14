@@ -7,29 +7,17 @@
                     <p>Keep track of your choombas in crime.</p>
                 </div>
                 <br />
-                <GenericList
-                    :selected-entry="
-                        Crews.filter((crew) => crew.id == accountStore.account?.selectedCrewId)[0]
-                    "
-                    :add-button-string="'Add a Crew'"
-                    :entries="Crews"
-                    :entry-name-key="'name'"
-                    :entry-desc-keys="['itemCount']"
-                    :entry-desc-format="'Users: {0}'"
-                    @addbtn-click="handleAddCrew"
-                    @entry-click="handleCrewSelected"
-                >
+                <GenericList v-if="Crews" :selected-entry="Crews.filter((crew) => crew.id == accountStore.account?.selectedCrewId)[0]
+                    " :add-button-string="'Add a Crew'" :entries="Crews" :entry-name-key="'name'"
+                    :entry-desc-keys="['itemCount']" :entry-desc-format="'Users: {0}'" @addbtn-click="handleAddCrew"
+                    @entry-click="handleCrewSelected">
                     <i class="fa-solid fa-handshake fa-sm"></i>
                 </GenericList>
             </template>
             <template v-slot:crewinfo>
-                <button class="back-btn" @click="() => (CurrPane = 'crews')">Back to Crews</button
-                ><br />
+                <button class="back-btn" @click="() => (CurrPane = 'crews')">Back to Crews</button><br />
                 <h1 class="white"><span class="red">></span> {{ SelectedCrew?.name }}</h1>
-                <button
-                    v-if="accountStore.account?.selectedCrewId !== SelectedCrew?.id"
-                    @click="handleSetActiveCrew"
-                >
+                <button v-if="accountStore.account?.selectedCrewId !== SelectedCrew?.id" @click="handleSetActiveCrew">
                     Set as Active
                 </button>
                 <h3 v-else class="yellow">Active Crew</h3>
@@ -57,28 +45,24 @@ import GenericList from '../components/generic/genericList.vue';
 import HoloPanes from '../components/generic/holoPanes.vue';
 import { onMounted, ref, type Ref } from 'vue';
 import { useAccountStore } from '@/stores/account';
+import { useUsersStore } from '@/stores/users';
 
 let CurrPane: Ref<string> = ref('crews');
 let Crews: Ref<Crew[]> = ref([]);
 let SelectedCrew: Ref<Crew | undefined> = ref(undefined);
 let accountStore = useAccountStore();
+let userStore = useUsersStore();
 
 onMounted(async () => {
-    await fetch('/api/user/getCrews', {
-        credentials: 'include'
-    })
-        .then((response) => response.json())
-        .then((json) => {
-            console.log(json);
-            Crews.value = json;
-        });
+    var crews = await userStore.fetchCrews();
+    Crews.value = crews;
 });
 
 async function handleSetActiveCrew() {
     if (SelectedCrew.value) await accountStore.updateActiveCrew(SelectedCrew.value?.id);
 }
 
-function handleAddCrew(e: any) {}
+function handleAddCrew(e: any) { }
 
 function handleCrewSelected(e: any) {
     SelectedCrew.value = e;

@@ -22,7 +22,7 @@ export const useInventoryStore = defineStore({
                     .finally(() => {
                         this.loading = false;
                     });
-            } catch (err: any) {}
+            } catch (err: any) { }
         },
 
         async holdItem(itemId: string, userId: string | null) {
@@ -47,6 +47,31 @@ export const useInventoryStore = defineStore({
                 credentials: 'include',
                 body: JSON.stringify(body)
             });
+        },
+
+        async addInventory(name: string) {
+            let inv = await post('addInventory', { name });
+            this.inventories.push(inv);
+        },
+
+        async addInventoryItem(inventoryId: string, name: string) {
+
+        },
+
+        async addItemAttribute(inventoryId: string, itemId: string, name: string) {
+
         }
     }
 });
+
+async function post(endpoint: string, obj: object) {
+    return await fetch('/api/user/' + endpoint, {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify(obj)
+    })
+        .then(res => res.json());
+}

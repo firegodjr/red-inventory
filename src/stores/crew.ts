@@ -4,6 +4,19 @@ import { defineStore } from 'pinia';
 export const useCrewStore = defineStore({
     id: 'crews',
     state: () => ({
-        allCrews: [] as Crew[]
-    })
-});
+        Crews: [] as Crew[]
+    }),
+    actions: {
+        async fetchCrews() {
+            await fetch('/api/user/getCrews', {
+                credentials: 'include'
+            })
+                .then((response) => response.json())
+                .then((json) => {
+                    console.log(json);
+                    this.Crews = json;
+                });
+        }
+    }
+})
+
